@@ -1,113 +1,216 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import html2canvas from "html2canvas";
+import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
+import TextEditor from "./components/TextEditor/TextEditor";
+import styles from "./Home.module.css";
+
+const thumbnailSizes = [
+  { width: 800, height: 600 },
+  { width: 1280, height: 720 },
+  { width: 1024, height: 768 },
+  { width: 640, height: 480 },
+  { width: 1280, height: 900 },
+  { width: 1366, height: 768 },
+  { width: 1920, height: 1080 },
+];
+
+const fontFamilies = [
+  "Roboto",
+  "Lato",
+  "Oswald",
+  "Montserrat",
+  "Raleway",
+  "Open Sans",
+  "Poppins",
+  "Merriweather",
+];
+
+const Home = () => {
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+  const [texts, setTexts] = useState<
+    {
+      id: number;
+      content: string;
+      color: string;
+      fontWeight: string;
+      fontStyle: string;
+      textDecoration: string;
+      fontSize: string;
+      fontFamily: string;
+    }[]
+  >([]);
+  const [additionalImage, setAdditionalImage] = useState<string | null>(null);
+  const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
+  const [thumbnailSize, setThumbnailSize] = useState(thumbnailSizes[0]);
+
+  const handleBackgroundImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBackgroundImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAdditionalImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAdditionalImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const addText = () => {
+    const newText = {
+      id: Date.now(),
+      content: "New Text",
+      color: "#000000",
+      fontWeight: "normal",
+      fontStyle: "normal",
+      textDecoration: "none",
+      fontSize: "16px",
+      fontFamily: "Roboto",
+    };
+    setTexts((prev) => [...prev, newText]);
+    setSelectedTextId(newText.id);
+  };
+
+  const updateTextContent = (id: number, content: string) => {
+    setTexts((prev) =>
+      prev.map((text) => (text.id === id ? { ...text, content } : text))
+    );
+  };
+
+  const updateTextColor = (id: number, color: string) => {
+    setTexts((prev) =>
+      prev.map((text) => (text.id === id ? { ...text, color } : text))
+    );
+  };
+
+  const updateTextStyle = (
+    id: number,
+    style: Partial<{
+      content: string;
+      color: string;
+      fontWeight: string;
+      fontStyle: string;
+      textDecoration: string;
+      fontSize: string;
+      fontFamily: string;
+    }>
+  ) => {
+    setTexts((prev) =>
+      prev.map((text) => (text.id === id ? { ...text, ...style } : text))
+    );
+  };
+
+  const deleteText = (id: number) => {
+    setTexts((prev) => prev.filter((text) => text.id !== id));
+    if (selectedTextId === id) {
+      setSelectedTextId(null);
+    }
+  };
+
+  const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
+    const canvas = await html2canvas(
+      document.getElementById("thumbnail") as HTMLElement
+    );
+    const dataUrl = canvas.toDataURL(`image/${format}`);
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = `thumbnail.${format}`;
+    link.click();
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <div className={styles.container}>
+      <div
+        className={styles.thumbnailSection}
+        style={{ width: thumbnailSize.width, height: thumbnailSize.height }}
+      >
+        <ThumbnailEditor
+          backgroundImage={backgroundImage}
+          texts={texts}
+          additionalImage={additionalImage}
+          setSelectedTextId={setSelectedTextId}
+          deleteText={deleteText}
         />
       </div>
+      <div className={styles.sidebar}>
+        <div className={styles.controlGroup}>
+          <label>배경 이미지: </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleBackgroundImageChange}
+          />
+        </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        <div className={styles.controlGroup}>
+          <label>추가 이미지: </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleAdditionalImageChange}
+          />
+        </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+        <div className={styles.controlGroup}>
+          <label>썸네일 크기: </label>
+          <select
+            onChange={(e) =>
+              setThumbnailSize(thumbnailSizes[parseInt(e.target.value, 10)])
+            }
+          >
+            {thumbnailSizes.map((size, index) => (
+              <option value={index} key={index}>
+                {size.width} x {size.height}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+        <button className={styles.button} onClick={addText}>
+          텍스트 추가
+        </button>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <TextEditor
+          selectedTextId={selectedTextId}
+          texts={texts}
+          updateTextContent={updateTextContent}
+          updateTextColor={updateTextColor}
+          updateTextStyle={updateTextStyle}
+          fontFamilies={fontFamilies}
+        />
+
+        <div className={styles.controlGroup}>
+          <button
+            className={styles.button}
+            onClick={() => downloadImage("png")}
+          >
+            Download as PNG
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => downloadImage("jpeg")}
+          >
+            Download as JPEG
+          </button>
+        </div>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default Home;
