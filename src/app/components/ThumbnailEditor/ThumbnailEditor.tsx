@@ -18,7 +18,9 @@ interface ThumbnailEditorProps {
   texts: Text[];
   additionalImage: string | null;
   setSelectedTextId: (id: number | null) => void;
+  setSelectedAdditionalImageId: (id: number | null) => void;
   deleteText: (id: number) => void;
+  deleteAdditionalImage: () => void;
 }
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
@@ -26,9 +28,12 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   texts,
   additionalImage,
   setSelectedTextId,
+  setSelectedAdditionalImageId,
   deleteText,
+  deleteAdditionalImage,
 }) => {
   const thumbnailRef = useRef<HTMLDivElement>(null);
+  const additionalImageRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
@@ -38,7 +43,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {texts.map((text) => (
-        <Draggable key={text.id}>
+        <Draggable key={text.id} nodeRef={thumbnailRef}>
           <div
             className={styles.text}
             style={{
@@ -50,10 +55,11 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
               fontFamily: text.fontFamily,
             }}
             onClick={() => setSelectedTextId(text.id)}
+            onMouseDown={(e) => e.stopPropagation()}
           >
             {text.content}
             <button
-              className={styles.deleteButton}
+              className={`${styles.deleteButton} deleteButton`}
               onClick={(e) => {
                 e.stopPropagation();
                 deleteText(text.id);
@@ -65,12 +71,28 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
         </Draggable>
       ))}
       {additionalImage && (
-        <Draggable>
-          <img
-            src={additionalImage}
-            className={styles.additionalImage}
-            alt="additional"
-          />
+        <Draggable nodeRef={additionalImageRef}>
+          <div
+            ref={additionalImageRef}
+            className={styles.additionalImageContainer}
+            onClick={() => setSelectedAdditionalImageId(Date.now())}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <img
+              src={additionalImage}
+              className={styles.additionalImage}
+              alt="additional"
+            />
+            <button
+              className={`${styles.deleteButton} deleteButton`}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteAdditionalImage();
+              }}
+            >
+              ✕
+            </button>
+          </div>
         </Draggable>
       )}
     </div>

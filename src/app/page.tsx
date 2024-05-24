@@ -43,6 +43,9 @@ const Home = () => {
   >([]);
   const [additionalImage, setAdditionalImage] = useState<string | null>(null);
   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
+  const [selectedAdditionalImageId, setSelectedAdditionalImageId] = useState<
+    number | null
+  >(null);
   const [thumbnailSize, setThumbnailSize] = useState(thumbnailSizes[0]);
 
   const handleBackgroundImageChange = (
@@ -122,15 +125,31 @@ const Home = () => {
     }
   };
 
+  const deleteAdditionalImage = () => {
+    setAdditionalImage(null);
+    setSelectedAdditionalImageId(null);
+  };
+
   const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
-    const canvas = await html2canvas(
-      document.getElementById("thumbnail") as HTMLElement
-    );
+    const thumbnailElement = document.getElementById(
+      "thumbnail"
+    ) as HTMLElement;
+
+    // Hide delete buttons before rendering the canvas
+    const deleteButtons = thumbnailElement.querySelectorAll(
+      ".deleteButton"
+    ) as NodeListOf<HTMLElement>;
+    deleteButtons.forEach((button) => (button.style.display = "none"));
+
+    const canvas = await html2canvas(thumbnailElement);
     const dataUrl = canvas.toDataURL(`image/${format}`);
     const link = document.createElement("a");
     link.href = dataUrl;
     link.download = `thumbnail.${format}`;
     link.click();
+
+    // Show delete buttons after rendering the canvas
+    deleteButtons.forEach((button) => (button.style.display = "block"));
   };
 
   return (
@@ -144,7 +163,9 @@ const Home = () => {
           texts={texts}
           additionalImage={additionalImage}
           setSelectedTextId={setSelectedTextId}
+          setSelectedAdditionalImageId={setSelectedAdditionalImageId}
           deleteText={deleteText}
+          deleteAdditionalImage={deleteAdditionalImage}
         />
       </div>
       <div className={styles.sidebar}>

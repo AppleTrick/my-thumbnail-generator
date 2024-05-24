@@ -16,13 +16,17 @@
   user-select: none;
 }
 
-.additionalImage {
+.additionalImageContainer {
   position: absolute;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100px; /* 원하는 초기 크기 설정 */
+  height: 100px; /* 원하는 초기 크기 설정 */
   cursor: move;
-  resize: both;
-  overflow: auto;
+}
+
+.additionalImage {
+  position: relative; /* Next.js Image 내부에 맞게 설정 */
+  width: 100%; /* 부모 컨테이너에 맞게 설정 */
+  height: 100%; /* 부모 컨테이너에 맞게 설정 */
 }
 
 .deleteButton {
