@@ -1,27 +1,8 @@
 import { useRef } from "react";
 import Draggable from "react-draggable";
 import styles from "./ThumbnailEditor.module.css";
-
-interface Text {
-  id: number;
-  content: string;
-  color: string;
-  fontWeight: string;
-  fontStyle: string;
-  textDecoration: string;
-  fontSize: string;
-  fontFamily: string;
-}
-
-interface ThumbnailEditorProps {
-  backgroundImage: string | null;
-  texts: Text[];
-  additionalImage: string | null;
-  setSelectedTextId: (id: number | null) => void;
-  setSelectedAdditionalImageId: (id: number | null) => void;
-  deleteText: (id: number) => void;
-  deleteAdditionalImage: () => void;
-}
+import MyDraggable from "../MyDraggable/MyDraggable";
+import { ThumbnailEditorProps } from "@/app/type";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   backgroundImage,
@@ -43,9 +24,8 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {texts.map((text) => (
-        <Draggable key={text.id} nodeRef={thumbnailRef}>
-          <div
-            className={styles.text}
+        <MyDraggable key={text.id}>
+          <span
             style={{
               color: text.color,
               fontWeight: text.fontWeight,
@@ -55,20 +35,10 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
               fontFamily: text.fontFamily,
             }}
             onClick={() => setSelectedTextId(text.id)}
-            onMouseDown={(e) => e.stopPropagation()}
           >
             {text.content}
-            <button
-              className={`${styles.deleteButton} deleteButton`}
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteText(text.id);
-              }}
-            >
-              ✕
-            </button>
-          </div>
-        </Draggable>
+          </span>
+        </MyDraggable>
       ))}
       {additionalImage && (
         <Draggable nodeRef={additionalImageRef}>

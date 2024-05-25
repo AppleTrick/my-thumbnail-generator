@@ -1,25 +1,5 @@
+import { TextEditorProps } from "@/app/type";
 import styles from "./TextEditor.module.css";
-
-interface TextEditorProps {
-  selectedTextId: number | null;
-  texts: {
-    id: number;
-    content: string;
-    color: string;
-    fontWeight: string;
-    fontStyle: string;
-    textDecoration: string;
-    fontSize: string;
-    fontFamily: string;
-  }[];
-  updateTextContent: (id: number, content: string) => void;
-  updateTextColor: (id: number, color: string) => void;
-  updateTextStyle: (
-    id: number,
-    style: Partial<TextEditorProps["texts"][0]>
-  ) => void;
-  fontFamilies: string[];
-}
 
 const TextEditor: React.FC<TextEditorProps> = ({
   selectedTextId,

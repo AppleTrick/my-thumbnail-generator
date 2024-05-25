@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
 import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
+import { Text } from "./type";
 
 const thumbnailSizes = [
   { width: 800, height: 600 },
@@ -29,18 +30,7 @@ const fontFamilies = [
 
 const Home = () => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
-  const [texts, setTexts] = useState<
-    {
-      id: number;
-      content: string;
-      color: string;
-      fontWeight: string;
-      fontStyle: string;
-      textDecoration: string;
-      fontSize: string;
-      fontFamily: string;
-    }[]
-  >([]);
+  const [texts, setTexts] = useState<Text[]>([]);
   const [additionalImage, setAdditionalImage] = useState<string | null>(null);
   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
   const [selectedAdditionalImageId, setSelectedAdditionalImageId] = useState<
@@ -101,18 +91,7 @@ const Home = () => {
     );
   };
 
-  const updateTextStyle = (
-    id: number,
-    style: Partial<{
-      content: string;
-      color: string;
-      fontWeight: string;
-      fontStyle: string;
-      textDecoration: string;
-      fontSize: string;
-      fontFamily: string;
-    }>
-  ) => {
+  const updateTextStyle = (id: number, style: Partial<Text>) => {
     setTexts((prev) =>
       prev.map((text) => (text.id === id ? { ...text, ...style } : text))
     );
@@ -135,7 +114,6 @@ const Home = () => {
       "thumbnail"
     ) as HTMLElement;
 
-    // Hide delete buttons before rendering the canvas
     const deleteButtons = thumbnailElement.querySelectorAll(
       ".deleteButton"
     ) as NodeListOf<HTMLElement>;
@@ -148,7 +126,6 @@ const Home = () => {
     link.download = `thumbnail.${format}`;
     link.click();
 
-    // Show delete buttons after rendering the canvas
     deleteButtons.forEach((button) => (button.style.display = "block"));
   };
 

@@ -1,25 +1,19 @@
 .thumbnail {
   width: 100%;
   height: 100%;
-  position: relative;
+  display: flex;
   background-size: cover;
+  justify-content: center;
+  align-items: center;
   background-position: center;
   border: 1px solid #ccc;
 }
 
-.text {
-  position: absolute;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  cursor: move;
-  user-select: none;
-}
-
 .additionalImageContainer {
   position: absolute;
-  width: 100px; /* 원하는 초기 크기 설정 */
-  height: 100px; /* 원하는 초기 크기 설정 */
+  width: 1000px; /* 원하는 초기 크기 설정 */
+  height: 1000px; /* 원하는 초기 크기 설정 */
+  background-color: aqua;
   cursor: move;
 }
 
