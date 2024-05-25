@@ -8,13 +8,13 @@ import styles from "./Home.module.css";
 import { Text } from "./type";
 
 const thumbnailSizes = [
+  { width: 150, height: 150 },
+  { width: 300, height: 300 },
+  { width: 400, height: 400 },
+  { width: 500, height: 500 },
+  { width: 600, height: 480 },
+  { width: 800, height: 800 },
   { width: 800, height: 600 },
-  { width: 1280, height: 720 },
-  { width: 1024, height: 768 },
-  { width: 640, height: 480 },
-  { width: 1280, height: 900 },
-  { width: 1366, height: 768 },
-  { width: 1920, height: 1080 },
 ];
 
 const fontFamilies = [
@@ -131,11 +131,10 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.thumbnailSection}
-        style={{ width: thumbnailSize.width, height: thumbnailSize.height }}
-      >
+      <div className={styles.thumbnailSection}>
         <ThumbnailEditor
+          width={thumbnailSize.width}
+          height={thumbnailSize.height}
           backgroundImage={backgroundImage}
           texts={texts}
           additionalImage={additionalImage}

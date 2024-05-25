@@ -4,7 +4,9 @@
 }
 
 .thumbnailSection {
-  position: relative;
+  /* position: relative; */
+  justify-content: center;
+  align-items: center;
   flex: 3;
   display: flex;
   padding: 2rem;

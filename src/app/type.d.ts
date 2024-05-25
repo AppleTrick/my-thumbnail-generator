@@ -10,6 +10,9 @@ export interface Text {
 }
 
 export interface ThumbnailEditorProps {
+  width: number;
+  height: number;
+
   backgroundImage: string | null;
   texts: Text[];
   additionalImage: string | null;
