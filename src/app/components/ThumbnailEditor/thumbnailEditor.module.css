@@ -1,17 +1,22 @@
 .thumbnail {
-  /* width: 100%;
-  height: 100%; */
   display: flex;
   background-size: cover;
   justify-content: center;
   align-items: center;
   background-position: center;
   border: 1px solid #ccc;
-  overflow: hidden;
+  position: relative;
 }
 
-.additionalImage {
+/* .additionalImage {
   display: flex;
   width: 100%;
   height: 100%;
+} */
+
+.hideOverflow {
+  width: 800px;
+  height: 800px;
+  position: relative;
+  overflow: hidden;
 }

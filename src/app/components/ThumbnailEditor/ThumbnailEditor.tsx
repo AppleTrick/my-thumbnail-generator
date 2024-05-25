@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRef } from "react";
 import styles from "./ThumbnailEditor.module.css";
 import MyDraggable from "../MyDraggable/MyDraggable";
@@ -29,38 +30,36 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      {texts.map((text) => (
-        <MyDraggable key={text.id}>
-          <ThumbnailContainer>
-            <span
-              style={{
-                color: text.color,
-                fontWeight: text.fontWeight,
-                fontStyle: text.fontStyle,
-                textDecoration: text.textDecoration,
-                fontSize: text.fontSize,
-                fontFamily: text.fontFamily,
-              }}
-              onClick={() => setSelectedTextId(text.id)}
-            >
-              {text.content}
-            </span>
-            <CloseButton />
-          </ThumbnailContainer>
-        </MyDraggable>
-      ))}
-      {additionalImage && (
-        <MyDraggable>
-          <ThumbnailContainer>
-            <img
-              src={additionalImage}
-              alt=""
-              className={styles.additionalImage}
-            />
-            <CloseButton />
-          </ThumbnailContainer>
-        </MyDraggable>
-      )}
+      <div className={styles.hideOverflow}>
+        {texts.map((text) => (
+          <MyDraggable key={text.id}>
+            <ThumbnailContainer>
+              <span
+                style={{
+                  color: text.color,
+                  fontWeight: text.fontWeight,
+                  fontStyle: text.fontStyle,
+                  textDecoration: text.textDecoration,
+                  fontSize: text.fontSize,
+                  fontFamily: text.fontFamily,
+                }}
+                onClick={() => setSelectedTextId(text.id)}
+              >
+                {text.content}
+              </span>
+              <CloseButton />
+            </ThumbnailContainer>
+          </MyDraggable>
+        ))}
+        {additionalImage && (
+          <MyDraggable>
+            <ThumbnailContainer>
+              <img src={additionalImage} alt="" />
+              <CloseButton />
+            </ThumbnailContainer>
+          </MyDraggable>
+        )}
+      </div>
     </div>
   );
 };

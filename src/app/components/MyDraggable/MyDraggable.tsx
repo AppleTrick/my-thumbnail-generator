@@ -11,14 +11,32 @@ const MyDraggable: React.FC<DraggableProps> = ({ children }) => {
   let shiftX = 0;
   let shiftY = 0;
 
+  const getOffset = (
+    element: HTMLElement | null
+  ): { left: number; top: number } => {
+    let offsetLeft = 0;
+    let offsetTop = 0;
+    while (element) {
+      offsetLeft +=
+        element.offsetLeft - element.scrollLeft + element.clientLeft;
+      offsetTop += element.offsetTop - element.scrollTop + element.clientTop;
+      element = element.offsetParent as HTMLElement;
+    }
+    return { left: offsetLeft, top: offsetTop };
+  };
+
   const onMouseMove = (e: MouseEvent) => {
     moveAt(e.pageX, e.pageY);
   };
 
   const moveAt = (pageX: number, pageY: number) => {
     if (draggableRef.current) {
-      draggableRef.current.style.left = `${pageX - shiftX}px`;
-      draggableRef.current.style.top = `${pageY - shiftY}px`;
+      const offset = getOffset(draggableRef.current.parentElement);
+      const newLeft = pageX - shiftX - offset.left;
+      const newTop = pageY - shiftY - offset.top;
+
+      draggableRef.current.style.left = `${newLeft}px`;
+      draggableRef.current.style.top = `${newTop}px`;
     }
   };
 
