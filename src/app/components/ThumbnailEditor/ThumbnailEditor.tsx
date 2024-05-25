@@ -3,6 +3,7 @@ import styles from "./ThumbnailEditor.module.css";
 import MyDraggable from "../MyDraggable/MyDraggable";
 import { ThumbnailEditorProps } from "@/app/type";
 import ThumbnailContainer from "../ThumbnailContainer/ThumbnailContainer";
+import CloseButton from "../CloseButton/CloseButton";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   width,
@@ -44,6 +45,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
             >
               {text.content}
             </span>
+            <CloseButton />
           </ThumbnailContainer>
         </MyDraggable>
       ))}
@@ -55,6 +57,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
               alt=""
               className={styles.additionalImage}
             />
+            <CloseButton />
           </ThumbnailContainer>
         </MyDraggable>
       )}
