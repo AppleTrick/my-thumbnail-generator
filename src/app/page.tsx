@@ -6,6 +6,7 @@ import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
 import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
 import { Text } from "./type";
+import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
 
 const thumbnailSizes = [
   { width: 150, height: 150 },
@@ -109,25 +110,25 @@ const Home = () => {
     setSelectedAdditionalImageId(null);
   };
 
-  const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
-    const thumbnailElement = document.getElementById(
-      "thumbnail"
-    ) as HTMLElement;
+  // const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
+  //   const thumbnailElement = document.getElementById(
+  //     "thumbnail"
+  //   ) as HTMLElement;
 
-    const deleteButtons = thumbnailElement.querySelectorAll(
-      ".deleteButton"
-    ) as NodeListOf<HTMLElement>;
-    deleteButtons.forEach((button) => (button.style.display = "none"));
+  //   const deleteButtons = thumbnailElement.querySelectorAll(
+  //     ".deleteButton"
+  //   ) as NodeListOf<HTMLElement>;
+  //   deleteButtons.forEach((button) => (button.style.display = "none"));
 
-    const canvas = await html2canvas(thumbnailElement);
-    const dataUrl = canvas.toDataURL(`image/${format}`);
-    const link = document.createElement("a");
-    link.href = dataUrl;
-    link.download = `thumbnail.${format}`;
-    link.click();
+  //   const canvas = await html2canvas(thumbnailElement);
+  //   const dataUrl = canvas.toDataURL(`image/${format}`);
+  //   const link = document.createElement("a");
+  //   link.href = dataUrl;
+  //   link.download = `thumbnail.${format}`;
+  //   link.click();
 
-    deleteButtons.forEach((button) => (button.style.display = "block"));
-  };
+  //   deleteButtons.forEach((button) => (button.style.display = "block"));
+  // };
 
   return (
     <div className={styles.container}>
@@ -192,18 +193,8 @@ const Home = () => {
         />
 
         <div className={styles.controlGroup}>
-          <button
-            className={styles.button}
-            onClick={() => downloadImage("png")}
-          >
-            Download as PNG
-          </button>
-          <button
-            className={styles.button}
-            onClick={() => downloadImage("jpeg")}
-          >
-            Download as JPEG
-          </button>
+          <CreateThumbnailButton createType={"png"} />
+          <CreateThumbnailButton createType={"jpg"} />
         </div>
       </div>
     </div>
