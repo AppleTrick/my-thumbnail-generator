@@ -1,7 +1,21 @@
 import styles from "./closeButton.module.css";
 
-const CloseButton = () => {
-  return <button className={styles.deleteButton}>✕</button>;
+interface CloseButtonProps {
+  deleteText?: () => void;
+}
+
+const CloseButton: React.FC<CloseButtonProps> = ({ deleteText }) => {
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        if (deleteText) deleteText();
+      }}
+      className={styles.deleteButton}
+    >
+      ✕
+    </button>
+  );
 };
 
 export default CloseButton;
