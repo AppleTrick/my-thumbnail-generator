@@ -6,27 +6,11 @@ import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
 import { Text } from "./type";
 import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
-
-const thumbnailSizes = [
-  { width: 150, height: 150 },
-  { width: 300, height: 300 },
-  { width: 400, height: 400 },
-  { width: 500, height: 500 },
-  { width: 600, height: 480 },
-  { width: 800, height: 800 },
-  { width: 800, height: 600 },
-];
-
-const fontFamilies = [
-  "Roboto",
-  "Lato",
-  "Oswald",
-  "Montserrat",
-  "Raleway",
-  "Open Sans",
-  "Poppins",
-  "Merriweather",
-];
+import {
+  fontFamilies,
+  newTextTemplate,
+  thumbnailSizes,
+} from "./data/initialValues";
 
 const Home = () => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
@@ -53,16 +37,7 @@ const Home = () => {
   };
 
   const addText = () => {
-    const newText = {
-      id: Date.now(),
-      content: "New Text",
-      color: "#000000",
-      fontWeight: "normal",
-      fontStyle: "normal",
-      textDecoration: "none",
-      fontSize: "36px",
-      fontFamily: "Roboto",
-    };
+    const newText = { ...newTextTemplate, id: Date.now() };
     setTexts((prev) => [...prev, newText]);
     setSelectedTextId(newText.id);
   };
@@ -72,27 +47,6 @@ const Home = () => {
       prev.map((text) => (text.id === id ? { ...text, ...updates } : text))
     );
   };
-
-  // // 텍스트 내용 변경
-  // const updateTextContent = (id: number, content: string) => {
-  //   setTexts((prev) =>
-  //     prev.map((text) => (text.id === id ? { ...text, content } : text))
-  //   );
-  // };
-
-  // // 텍스트 색 변경
-  // const updateTextColor = (id: number, color: string) => {
-  //   setTexts((prev) =>
-  //     prev.map((text) => (text.id === id ? { ...text, color } : text))
-  //   );
-  // };
-
-  // // 텍스트 스타일 변경
-  // const updateTextStyle = (id: number, style: Partial<Text>) => {
-  //   setTexts((prev) =>
-  //     prev.map((text) => (text.id === id ? { ...text, ...style } : text))
-  //   );
-  // };
 
   const deleteText = (id: number) => {
     setTexts((prev) => prev.filter((text) => text.id !== id));
@@ -163,9 +117,6 @@ const Home = () => {
           selectedTextId={selectedTextId}
           texts={texts}
           updateText={updateText}
-          // updateTextContent={updateTextContent}
-          // updateTextColor={updateTextColor}
-          // updateTextStyle={updateTextStyle}
           fontFamilies={fontFamilies}
         />
 
