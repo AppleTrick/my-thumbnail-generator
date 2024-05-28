@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import html2canvas from "html2canvas";
 import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
 import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
@@ -39,27 +38,15 @@ const Home = () => {
   >(null);
   const [thumbnailSize, setThumbnailSize] = useState(thumbnailSizes[0]);
 
-  const handleBackgroundImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setImage: (image: string | null) => void
   ) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBackgroundImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleAdditionalImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAdditionalImage(reader.result as string);
+        setImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -73,30 +60,39 @@ const Home = () => {
       fontWeight: "normal",
       fontStyle: "normal",
       textDecoration: "none",
-      fontSize: "16px",
+      fontSize: "36px",
       fontFamily: "Roboto",
     };
     setTexts((prev) => [...prev, newText]);
     setSelectedTextId(newText.id);
   };
 
-  const updateTextContent = (id: number, content: string) => {
+  const updateText = (id: number, updates: Partial<Text>) => {
     setTexts((prev) =>
-      prev.map((text) => (text.id === id ? { ...text, content } : text))
+      prev.map((text) => (text.id === id ? { ...text, ...updates } : text))
     );
   };
 
-  const updateTextColor = (id: number, color: string) => {
-    setTexts((prev) =>
-      prev.map((text) => (text.id === id ? { ...text, color } : text))
-    );
-  };
+  // // 텍스트 내용 변경
+  // const updateTextContent = (id: number, content: string) => {
+  //   setTexts((prev) =>
+  //     prev.map((text) => (text.id === id ? { ...text, content } : text))
+  //   );
+  // };
 
-  const updateTextStyle = (id: number, style: Partial<Text>) => {
-    setTexts((prev) =>
-      prev.map((text) => (text.id === id ? { ...text, ...style } : text))
-    );
-  };
+  // // 텍스트 색 변경
+  // const updateTextColor = (id: number, color: string) => {
+  //   setTexts((prev) =>
+  //     prev.map((text) => (text.id === id ? { ...text, color } : text))
+  //   );
+  // };
+
+  // // 텍스트 스타일 변경
+  // const updateTextStyle = (id: number, style: Partial<Text>) => {
+  //   setTexts((prev) =>
+  //     prev.map((text) => (text.id === id ? { ...text, ...style } : text))
+  //   );
+  // };
 
   const deleteText = (id: number) => {
     setTexts((prev) => prev.filter((text) => text.id !== id));
@@ -109,26 +105,6 @@ const Home = () => {
     setAdditionalImage(null);
     setSelectedAdditionalImageId(null);
   };
-
-  // const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
-  //   const thumbnailElement = document.getElementById(
-  //     "thumbnail"
-  //   ) as HTMLElement;
-
-  //   const deleteButtons = thumbnailElement.querySelectorAll(
-  //     ".deleteButton"
-  //   ) as NodeListOf<HTMLElement>;
-  //   deleteButtons.forEach((button) => (button.style.display = "none"));
-
-  //   const canvas = await html2canvas(thumbnailElement);
-  //   const dataUrl = canvas.toDataURL(`image/${format}`);
-  //   const link = document.createElement("a");
-  //   link.href = dataUrl;
-  //   link.download = `thumbnail.${format}`;
-  //   link.click();
-
-  //   deleteButtons.forEach((button) => (button.style.display = "block"));
-  // };
 
   return (
     <div className={styles.container}>
@@ -151,7 +127,7 @@ const Home = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={handleBackgroundImageChange}
+            onChange={(e) => handleImageChange(e, setBackgroundImage)}
           />
         </div>
 
@@ -160,7 +136,7 @@ const Home = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={handleAdditionalImageChange}
+            onChange={(e) => handleImageChange(e, setAdditionalImage)}
           />
         </div>
 
@@ -186,9 +162,10 @@ const Home = () => {
         <TextEditor
           selectedTextId={selectedTextId}
           texts={texts}
-          updateTextContent={updateTextContent}
-          updateTextColor={updateTextColor}
-          updateTextStyle={updateTextStyle}
+          updateText={updateText}
+          // updateTextContent={updateTextContent}
+          // updateTextColor={updateTextColor}
+          // updateTextStyle={updateTextStyle}
           fontFamilies={fontFamilies}
         />
 

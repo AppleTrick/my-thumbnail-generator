@@ -4,9 +4,10 @@ import styles from "./TextEditor.module.css";
 const TextEditor: React.FC<TextEditorProps> = ({
   selectedTextId,
   texts,
-  updateTextContent,
-  updateTextColor,
-  updateTextStyle,
+  updateText,
+  // updateTextContent,
+  // updateTextColor,
+  // updateTextStyle,
   fontFamilies,
 }) => {
   const selectedText = texts.find((text) => text.id === selectedTextId);
@@ -17,19 +18,21 @@ const TextEditor: React.FC<TextEditorProps> = ({
       <input
         type="text"
         value={selectedText?.content || ""}
-        onChange={(e) => updateTextContent(selectedTextId, e.target.value)}
+        onChange={(e) =>
+          updateText(selectedTextId, { content: e.target.value })
+        }
       />
       <label>텍스트 색상: </label>
       <input
         type="color"
         value={selectedText?.color || "#000000"}
-        onChange={(e) => updateTextColor(selectedTextId, e.target.value)}
+        onChange={(e) => updateText(selectedTextId, { color: e.target.value })}
       />
       <label>글꼴: </label>
       <select
         value={selectedText?.fontFamily}
         onChange={(e) =>
-          updateTextStyle(selectedTextId, { fontFamily: e.target.value })
+          updateText(selectedTextId, { fontFamily: e.target.value })
         }
       >
         {fontFamilies.map((font, index) => (
@@ -43,13 +46,13 @@ const TextEditor: React.FC<TextEditorProps> = ({
         type="number"
         value={parseInt(selectedText?.fontSize || "16")}
         onChange={(e) =>
-          updateTextStyle(selectedTextId, { fontSize: `${e.target.value}px` })
+          updateText(selectedTextId, { fontSize: `${e.target.value}px` })
         }
       />
       <div>
         <button
           onClick={() =>
-            updateTextStyle(selectedTextId, {
+            updateText(selectedTextId, {
               fontWeight:
                 selectedText?.fontWeight === "bold" ? "normal" : "bold",
             })
@@ -59,7 +62,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
         </button>
         <button
           onClick={() =>
-            updateTextStyle(selectedTextId, {
+            updateText(selectedTextId, {
               fontStyle:
                 selectedText?.fontStyle === "italic" ? "normal" : "italic",
             })
@@ -69,7 +72,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
         </button>
         <button
           onClick={() =>
-            updateTextStyle(selectedTextId, {
+            updateText(selectedTextId, {
               textDecoration:
                 selectedText?.textDecoration === "underline"
                   ? "none"

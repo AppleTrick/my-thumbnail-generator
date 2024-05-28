@@ -34,11 +34,12 @@ export interface TextEditorProps {
     fontSize: string;
     fontFamily: string;
   }[];
-  updateTextContent: (id: number, content: string) => void;
-  updateTextColor: (id: number, color: string) => void;
-  updateTextStyle: (
-    id: number,
-    style: Partial<TextEditorProps["texts"][0]>
-  ) => void;
+  // updateTextContent: (id: number, content: string) => void;
+  // updateTextColor: (id: number, color: string) => void;
+  // updateTextStyle: (
+  //   id: number,
+  //   style: Partial<TextEditorProps["texts"][0]>
+  // ) => void;
+  updateText: (id: number, updates: Partial<Text>) => void;
   fontFamilies: string[];
 }
