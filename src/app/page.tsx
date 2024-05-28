@@ -6,11 +6,7 @@ import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
 import { Text } from "./type";
 import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
-import {
-  fontFamilies,
-  newTextTemplate,
-  thumbnailSizes,
-} from "./data/initialValues";
+import { newTextTemplate, thumbnailSizes } from "./data/initialValues";
 
 const Home = () => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
@@ -117,7 +113,6 @@ const Home = () => {
           selectedTextId={selectedTextId}
           texts={texts}
           updateText={updateText}
-          fontFamilies={fontFamilies}
         />
 
         <div className={styles.controlGroup}>

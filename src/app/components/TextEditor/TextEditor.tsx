@@ -1,14 +1,11 @@
 import { TextEditorProps } from "@/app/type";
 import styles from "./TextEditor.module.css";
+import { fontFamilies } from "@/app/data/initialValues";
 
 const TextEditor: React.FC<TextEditorProps> = ({
   selectedTextId,
   texts,
   updateText,
-  // updateTextContent,
-  // updateTextColor,
-  // updateTextStyle,
-  fontFamilies,
 }) => {
   const selectedText = texts.find((text) => text.id === selectedTextId);
 
