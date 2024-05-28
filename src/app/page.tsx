@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   const deleteImage = (id: number) => {
-    setImages((prev) => prev.filter((text) => text.id !== id));
+    setImages((prev) => prev.filter((image) => image.id !== id));
     if (selectedImageId === id) {
       setSelectedImageId(null);
     }
@@ -91,6 +91,7 @@ const Home = () => {
           images={images}
           setSelectedTextId={setSelectedTextId}
           deleteText={deleteText}
+          deleteImage={deleteImage}
         />
       </div>
       <div className={styles.sidebar}>

@@ -14,6 +14,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   images,
   setSelectedTextId,
   deleteText,
+  deleteImage,
 }) => {
   const thumbnailRef = useRef<HTMLDivElement>(null);
 
@@ -48,7 +49,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
               >
                 {text.content}
               </span>
-              <CloseButton deleteText={() => deleteText(text.id)} />
+              <CloseButton deleteData={() => deleteText(text.id)} />
             </ThumbnailContainer>
           </MyDraggable>
         ))}
@@ -56,7 +57,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
           <MyDraggable key={image.id}>
             <ThumbnailContainer>
               <img src={image.src} alt="" />
-              <CloseButton />
+              <CloseButton deleteData={() => deleteImage(image.id)} />
             </ThumbnailContainer>
           </MyDraggable>
         ))}

@@ -22,6 +22,7 @@ export interface ThumbnailEditorProps {
   images: SrcImage[];
   setSelectedTextId: (id: number | null) => void;
   deleteText: (id: number) => void;
+  deleteImage: (id: number) => void;
 }
 
 export interface TextEditorProps {
