@@ -30,7 +30,10 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
-      <div className={styles.hideOverflow}>
+      <div
+        className={styles.hideOverflow}
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
         {texts.map((text) => (
           <MyDraggable key={text.id}>
             <ThumbnailContainer>

@@ -8,15 +8,7 @@
   position: relative;
 }
 
-/* .additionalImage {
-  display: flex;
-  width: 100%;
-  height: 100%;
-} */
-
 .hideOverflow {
-  width: 800px;
-  height: 800px;
   position: relative;
   overflow: hidden;
 }
