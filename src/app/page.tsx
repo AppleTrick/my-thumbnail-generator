@@ -1,22 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
 import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
-import { Text } from "./type";
+import { Text, SrcImage } from "./type";
 import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
 import { newTextTemplate, thumbnailSizes } from "./data/initialValues";
 
 const Home = () => {
+  // 초기값 설정하는 usestate
+  const [thumbnailSize, setThumbnailSize] = useState(thumbnailSizes[0]);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [texts, setTexts] = useState<Text[]>([]);
-  const [additionalImage, setAdditionalImage] = useState<string | null>(null);
+  const [images, setImages] = useState<SrcImage[]>([]);
+
+  // 추가할 이미지를 잠시 저장해둘 state
+  const [basicImage, setBasicImage] = useState<string | null>(null);
+
+  // 값 변경에 영향을 미치는 useState
   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
-  const [selectedAdditionalImageId, setSelectedAdditionalImageId] = useState<
-    number | null
-  >(null);
-  const [thumbnailSize, setThumbnailSize] = useState(thumbnailSizes[0]);
+  const [selectedImageId, setSelectedImageId] = useState<number | null>(null);
+
+  // 파일입력 요소
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const BackgroundInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -32,10 +40,28 @@ const Home = () => {
     }
   };
 
+  const addBackgorund = () => {
+    if (BackgroundInputRef.current) {
+      BackgroundInputRef.current.click();
+    }
+  };
+
   const addText = () => {
     const newText = { ...newTextTemplate, id: Date.now() };
     setTexts((prev) => [...prev, newText]);
     setSelectedTextId(newText.id);
+  };
+
+  const addImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+    const newImage = {
+      id: Date.now(),
+      src: basicImage || "",
+    };
+    setImages((prev) => [...prev, newImage]);
+    setSelectedImageId(newImage.id);
   };
 
   const updateText = (id: number, updates: Partial<Text>) => {
@@ -44,6 +70,8 @@ const Home = () => {
     );
   };
 
+  const updateImage = (id: number) => {};
+
   const deleteText = (id: number) => {
     setTexts((prev) => prev.filter((text) => text.id !== id));
     if (selectedTextId === id) {
@@ -51,9 +79,11 @@ const Home = () => {
     }
   };
 
-  const deleteAdditionalImage = () => {
-    setAdditionalImage(null);
-    setSelectedAdditionalImageId(null);
+  const deleteImage = (id: number) => {
+    setImages((prev) => prev.filter((text) => text.id !== id));
+    if (selectedImageId === id) {
+      setSelectedImageId(null);
+    }
   };
 
   return (
@@ -64,32 +94,12 @@ const Home = () => {
           height={thumbnailSize.height}
           backgroundImage={backgroundImage}
           texts={texts}
-          additionalImage={additionalImage}
+          images={images}
           setSelectedTextId={setSelectedTextId}
-          setSelectedAdditionalImageId={setSelectedAdditionalImageId}
           deleteText={deleteText}
-          deleteAdditionalImage={deleteAdditionalImage}
         />
       </div>
       <div className={styles.sidebar}>
-        <div className={styles.controlGroup}>
-          <label>배경 이미지: </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e, setBackgroundImage)}
-          />
-        </div>
-
-        <div className={styles.controlGroup}>
-          <label>추가 이미지: </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageChange(e, setAdditionalImage)}
-          />
-        </div>
-
         <div className={styles.controlGroup}>
           <label>썸네일 크기: </label>
           <select
@@ -105,9 +115,31 @@ const Home = () => {
           </select>
         </div>
 
-        <button className={styles.button} onClick={addText}>
-          텍스트 추가
+        <button className={styles.button} onClick={addBackgorund}>
+          배경추가하기
         </button>
+        <input
+          type="file"
+          accept="image/*"
+          ref={BackgroundInputRef}
+          style={{ display: "none" }}
+          onChange={(e) => handleImageChange(e, setBackgroundImage)}
+        />
+
+        <button className={styles.button} onClick={addText}>
+          텍스트 추가하기
+        </button>
+
+        <button className={styles.button} onClick={addImage}>
+          이미지 추가하기
+        </button>
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={(e) => handleImageChange(e, setBasicImage)}
+        />
 
         <TextEditor
           selectedTextId={selectedTextId}

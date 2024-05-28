@@ -11,11 +11,8 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   height,
   backgroundImage,
   texts,
-  additionalImage,
+  images,
   setSelectedTextId,
-  setSelectedAdditionalImageId,
-  deleteText,
-  deleteAdditionalImage,
 }) => {
   const thumbnailRef = useRef<HTMLDivElement>(null);
 
@@ -54,14 +51,14 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
             </ThumbnailContainer>
           </MyDraggable>
         ))}
-        {additionalImage && (
-          <MyDraggable>
+        {images.map((image) => (
+          <MyDraggable key={image.id}>
             <ThumbnailContainer>
-              <img src={additionalImage} alt="" />
+              <img src={image.src} alt="" />
               <CloseButton />
             </ThumbnailContainer>
           </MyDraggable>
-        )}
+        ))}
       </div>
     </div>
   );

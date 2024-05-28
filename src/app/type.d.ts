@@ -9,17 +9,19 @@ export interface Text {
   fontFamily: string;
 }
 
+export interface SrcImage {
+  id: number;
+  src: string;
+}
+
 export interface ThumbnailEditorProps {
   width: number;
   height: number;
-
   backgroundImage: string | null;
   texts: Text[];
-  additionalImage: string | null;
+  images: SrcImage[];
   setSelectedTextId: (id: number | null) => void;
-  setSelectedAdditionalImageId: (id: number | null) => void;
   deleteText: (id: number) => void;
-  deleteAdditionalImage: () => void;
 }
 
 export interface TextEditorProps {
