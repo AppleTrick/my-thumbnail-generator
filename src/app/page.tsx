@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
 import TextEditor from "./components/TextEditor/TextEditor";
 import styles from "./Home.module.css";
 import { Text, SrcImage } from "./type";
 import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
 import { newTextTemplate, thumbnailSizes } from "./data/initialValues";
+import { triggerFileInputClick } from "./utils/utils";
 
 const Home = () => {
   // 초기값 설정하는 usestate
@@ -16,7 +17,7 @@ const Home = () => {
   const [images, setImages] = useState<SrcImage[]>([]);
 
   // 추가할 이미지를 잠시 저장해둘 state
-  const [basicImage, setBasicImage] = useState<string | null>(null);
+  const [basicImage, setBasicImage] = useState<string | null>("");
 
   // 값 변경에 영향을 미치는 useState
   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
@@ -40,29 +41,22 @@ const Home = () => {
     }
   };
 
-  const addBackgorund = () => {
-    if (BackgroundInputRef.current) {
-      BackgroundInputRef.current.click();
-    }
-  };
-
   const addText = () => {
     const newText = { ...newTextTemplate, id: Date.now() };
     setTexts((prev) => [...prev, newText]);
     setSelectedTextId(newText.id);
   };
 
-  const addImage = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  useEffect(() => {
+    if (basicImage) {
+      const newImage = {
+        id: Date.now(),
+        src: basicImage,
+      };
+      setImages((prev) => [...prev, newImage]);
+      setSelectedImageId(newImage.id);
     }
-    const newImage = {
-      id: Date.now(),
-      src: basicImage || "",
-    };
-    setImages((prev) => [...prev, newImage]);
-    setSelectedImageId(newImage.id);
-  };
+  }, [basicImage]);
 
   const updateText = (id: number, updates: Partial<Text>) => {
     setTexts((prev) =>
@@ -115,7 +109,10 @@ const Home = () => {
           </select>
         </div>
 
-        <button className={styles.button} onClick={addBackgorund}>
+        <button
+          className={styles.button}
+          onClick={() => triggerFileInputClick(BackgroundInputRef)}
+        >
           배경추가하기
         </button>
         <input
@@ -130,7 +127,10 @@ const Home = () => {
           텍스트 추가하기
         </button>
 
-        <button className={styles.button} onClick={addImage}>
+        <button
+          className={styles.button}
+          onClick={() => triggerFileInputClick(fileInputRef)}
+        >
           이미지 추가하기
         </button>
         <input
