@@ -1,6 +1,8 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import styles from "./elementContainer.module.css";
 import CloseButton from "../CloseButton/CloseButton";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 
 interface ElementContainerProps {
   children: React.ReactNode;
@@ -22,7 +24,14 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
     >
-      {children}
+      <ResizableBox
+        width={100}
+        height={100}
+        minConstraints={[50, 50]}
+        maxConstraints={[300, 300]}
+      >
+        {children}
+      </ResizableBox>
       {showState && <CloseButton deleteData={deleteData} />}
     </div>
   );

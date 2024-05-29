@@ -3,9 +3,10 @@ import { useRef, useState } from "react";
 import styles from "./ThumbnailEditor.module.css";
 import MyDraggable from "../MyDraggable/MyDraggable";
 import { ThumbnailEditorProps } from "@/app/type";
-import CloseButton from "../CloseButton/CloseButton";
 import { MyTextStyle } from "@/app/data/initialValues";
 import ElementContainer from "../ElementContainer/ElementContainer";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   width,
@@ -49,10 +50,24 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
         {images.map((image) => (
           <MyDraggable key={image.id}>
             <ElementContainer deleteData={() => deleteImage(image.id)}>
-              <img src={image.src} alt="" />
+              <img
+                src={image.src}
+                alt=""
+                style={{ width: "100%", height: "100%" }}
+              />
             </ElementContainer>
           </MyDraggable>
         ))}
+        <ResizableBox
+          width={100}
+          height={100}
+          minConstraints={[50, 50]}
+          maxConstraints={[300, 300]}
+        >
+          <div
+            style={{ width: "100%", height: "100%", backgroundColor: "aqua" }}
+          ></div>
+        </ResizableBox>
       </div>
     </div>
   );
