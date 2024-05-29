@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "./ThumbnailEditor.module.css";
 import MyDraggable from "../MyDraggable/MyDraggable";
 import { ThumbnailEditorProps } from "@/app/type";
-import ThumbnailContainer from "../ThumbnailContainer/ThumbnailContainer";
 import CloseButton from "../CloseButton/CloseButton";
+import { MyTextStyle } from "@/app/data/initialValues";
+import ElementContainer from "../ElementContainer/ElementContainer";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   width,
@@ -35,30 +36,21 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
       >
         {texts.map((text) => (
           <MyDraggable key={text.id}>
-            <ThumbnailContainer>
+            <ElementContainer deleteData={() => deleteText(text.id)}>
               <span
-                style={{
-                  color: text.color,
-                  fontWeight: text.fontWeight,
-                  fontStyle: text.fontStyle,
-                  textDecoration: text.textDecoration,
-                  fontSize: text.fontSize,
-                  fontFamily: text.fontFamily,
-                }}
+                style={MyTextStyle(text)}
                 onClick={() => setSelectedTextId(text.id)}
               >
                 {text.content}
               </span>
-              <CloseButton deleteData={() => deleteText(text.id)} />
-            </ThumbnailContainer>
+            </ElementContainer>
           </MyDraggable>
         ))}
         {images.map((image) => (
           <MyDraggable key={image.id}>
-            <ThumbnailContainer>
+            <ElementContainer deleteData={() => deleteImage(image.id)}>
               <img src={image.src} alt="" />
-              <CloseButton deleteData={() => deleteImage(image.id)} />
-            </ThumbnailContainer>
+            </ElementContainer>
           </MyDraggable>
         ))}
       </div>

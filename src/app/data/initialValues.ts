@@ -1,5 +1,7 @@
+import { Text } from "../type";
+
 export const thumbnailSizes = [
-  { width: 150, height: 150 },
+  { width: 1280, height: 720 },
   { width: 300, height: 300 },
   { width: 400, height: 400 },
   { width: 500, height: 500 },
@@ -28,4 +30,15 @@ export const newTextTemplate = {
   textDecoration: "none",
   fontSize: "36px",
   fontFamily: "Roboto",
+};
+
+export const MyTextStyle = (text: Text) => {
+  return {
+    color: text.color,
+    fontWeight: text.fontWeight,
+    fontStyle: text.fontStyle,
+    textDecoration: text.textDecoration,
+    fontSize: text.fontSize,
+    fontFamily: text.fontFamily,
+  };
 };

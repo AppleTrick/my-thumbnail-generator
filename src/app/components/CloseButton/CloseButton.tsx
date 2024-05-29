@@ -11,7 +11,7 @@ const CloseButton: React.FC<CloseButtonProps> = ({ deleteData }) => {
         e.stopPropagation();
         if (deleteData) deleteData();
       }}
-      className={styles.deleteButton}
+      className={`${styles.deleteButton} ${styles.hidden}`}
     >
       ✕
     </button>
