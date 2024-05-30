@@ -61,6 +61,8 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
 
   const resize = useCallback(
     (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
       if (isResizing && resizableRef.current) {
         // const offset = getOffset(resizableRef.current.parentElement);
         const rect = resizableRef.current.getBoundingClientRect();

@@ -29,6 +29,7 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
         onMouseOut={onMouseOut}
       >
         <div ref={resizableRef}>{children}</div>
+
         {showState && <CloseButton deleteData={deleteData} />}
         {showState && <ResizeButton resizableRef={resizableRef} />}
       </div>
