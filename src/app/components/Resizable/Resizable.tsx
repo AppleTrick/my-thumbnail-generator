@@ -53,3 +53,20 @@ const Resizable: React.FC<ResizableProps> = ({ children }) => {
 };
 
 export default Resizable;
+
+// 리사이즈 하는 방법
+//   const resize = useCallback(
+//     (e: React.MouseEvent<HTMLDivElement>) => {
+//       //   if (isResizing && resizableRef.current) {
+//       //     const newWidth =
+//       //       e.clientX - resizableRef.current.getBoundingClientRect().left;
+//       //     const newHeight =
+//       //       e.clientY - resizableRef.current.getBoundingClientRect().top;
+//       //   }
+//       if (isResizing && resizableRef.current) {
+//         console.log(resizableRef.current.getBoundingClientRect());
+//         console.log(e.clientX, e.clientY);
+//       }
+//     },
+//     [isResizing]
+//   );
