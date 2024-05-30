@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./ThumbnailEditor.module.css";
-import MyDraggable from "../MyDraggable/MyDraggable";
 import { ThumbnailEditorProps } from "@/app/type";
 import { MyTextStyle } from "@/app/data/initialValues";
+import MyDraggable from "../MyDraggable/MyDraggable";
 import ElementContainer from "../ElementContainer/ElementContainer";
-import { ResizableBox } from "react-resizable";
-import "react-resizable/css/styles.css";
+import Resizable from "../Resizable/Resizable";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   width,
@@ -58,16 +57,6 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
             </ElementContainer>
           </MyDraggable>
         ))}
-        <ResizableBox
-          width={100}
-          height={100}
-          minConstraints={[50, 50]}
-          maxConstraints={[300, 300]}
-        >
-          <div
-            style={{ width: "100%", height: "100%", backgroundColor: "aqua" }}
-          ></div>
-        </ResizableBox>
       </div>
     </div>
   );

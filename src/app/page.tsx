@@ -27,7 +27,7 @@ const Home = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const BackgroundInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageChange = (
+  const addImage = (
     e: React.ChangeEvent<HTMLInputElement>,
     setImage: (image: string | null) => void
   ) => {
@@ -47,6 +47,8 @@ const Home = () => {
     setSelectedTextId(newText.id);
   };
 
+  // 잠시 저장해둘 image가 추가되면 Images에 데이터를 추가
+  // 데이터의 형식은 {id, src} 형태로 저장
   useEffect(() => {
     if (basicImage) {
       const newImage = {
@@ -121,7 +123,7 @@ const Home = () => {
           accept="image/*"
           ref={BackgroundInputRef}
           style={{ display: "none" }}
-          onChange={(e) => handleImageChange(e, setBackgroundImage)}
+          onChange={(e) => addImage(e, setBackgroundImage)}
         />
 
         <button className={styles.button} onClick={addText}>
@@ -139,7 +141,7 @@ const Home = () => {
           accept="image/*"
           ref={fileInputRef}
           style={{ display: "none" }}
-          onChange={(e) => handleImageChange(e, setBasicImage)}
+          onChange={(e) => addImage(e, setBasicImage)}
         />
 
         <TextEditor
