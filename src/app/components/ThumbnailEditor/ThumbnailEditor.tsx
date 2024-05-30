@@ -35,27 +35,29 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
         style={{ width: `${width}px`, height: `${height}px` }}
       >
         {texts.map((text) => (
-          <MyDraggable key={text.id}>
-            <ElementContainer deleteData={() => deleteText(text.id)}>
-              <span
-                style={MyTextStyle(text)}
-                onClick={() => setSelectedTextId(text.id)}
-              >
-                {text.content}
-              </span>
-            </ElementContainer>
-          </MyDraggable>
+          <ElementContainer
+            key={text.id}
+            deleteData={() => deleteText(text.id)}
+          >
+            <span
+              style={MyTextStyle(text)}
+              onClick={() => setSelectedTextId(text.id)}
+            >
+              {text.content}
+            </span>
+          </ElementContainer>
         ))}
         {images.map((image) => (
-          <MyDraggable key={image.id}>
-            <ElementContainer deleteData={() => deleteImage(image.id)}>
-              <img
-                src={image.src}
-                alt=""
-                style={{ width: "100%", height: "100%" }}
-              />
-            </ElementContainer>
-          </MyDraggable>
+          <ElementContainer
+            key={image.id}
+            deleteData={() => deleteImage(image.id)}
+          >
+            <img
+              src={image.src}
+              alt=""
+              style={{ width: "100%", height: "100%" }}
+            />
+          </ElementContainer>
         ))}
       </div>
     </div>
