@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styles from "./myDraggable.module.css";
+import { getOffset } from "@/app/utils/utils";
 
 interface DraggableProps {
   children: React.ReactNode;
@@ -10,20 +11,6 @@ const MyDraggable: React.FC<DraggableProps> = ({ children }) => {
 
   let shiftX = 0;
   let shiftY = 0;
-
-  const getOffset = (
-    element: HTMLElement | null
-  ): { left: number; top: number } => {
-    let offsetLeft = 0;
-    let offsetTop = 0;
-    while (element) {
-      offsetLeft +=
-        element.offsetLeft - element.scrollLeft + element.clientLeft;
-      offsetTop += element.offsetTop - element.scrollTop + element.clientTop;
-      element = element.offsetParent as HTMLElement;
-    }
-    return { left: offsetLeft, top: offsetTop };
-  };
 
   const onMouseMove = (e: MouseEvent) => {
     moveAt(e.pageX, e.pageY);
