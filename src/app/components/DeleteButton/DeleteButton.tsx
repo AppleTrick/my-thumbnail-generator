@@ -1,10 +1,10 @@
-import styles from "./closeButton.module.css";
+import styles from "./deleteButton.module.css";
 
-interface CloseButtonProps {
+interface DeleteButtonProps {
   deleteData?: () => void;
 }
 
-const CloseButton: React.FC<CloseButtonProps> = ({ deleteData }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({ deleteData }) => {
   return (
     <button
       onClick={(e) => {
@@ -18,4 +18,4 @@ const CloseButton: React.FC<CloseButtonProps> = ({ deleteData }) => {
   );
 };
 
-export default CloseButton;
+export default DeleteButton;

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   position: absolute;
+  justify-content: space-between; /* 수정된 부분 */
 }
 
 .dataContainer {
@@ -11,4 +12,5 @@
 
 .buttonContainer {
   display: flex;
+  flex-shrink: 0; /* 수정된 부분: 크기가 줄어들지 않도록 함 */
 }

@@ -1,5 +1,5 @@
 import React, { RefObject, useRef } from "react";
-import styles from "./myDraggable.module.css";
+import styles from "./draggable.module.css";
 import { getOffset } from "@/app/utils/utils";
 
 interface DraggableProps {
@@ -7,7 +7,7 @@ interface DraggableProps {
   refObject?: RefObject<HTMLDivElement>;
 }
 
-const MyDraggable: React.FC<DraggableProps> = ({ children, refObject }) => {
+const Draggable: React.FC<DraggableProps> = ({ children, refObject }) => {
   const draggableRef = useRef<HTMLDivElement>(null);
 
   let shiftX = 0;
@@ -69,4 +69,4 @@ const MyDraggable: React.FC<DraggableProps> = ({ children, refObject }) => {
   );
 };
 
-export default MyDraggable;
+export default Draggable;

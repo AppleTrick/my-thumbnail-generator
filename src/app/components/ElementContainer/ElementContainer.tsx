@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import styles from "./elementContainer.module.css";
-import CloseButton from "../CloseButton/CloseButton";
+import DeleteButton from "../DeleteButton/DeleteButton";
 import ResizeButton from "../ResizeButton/ResizeButton";
-import MyDraggable from "../MyDraggable/MyDraggable";
+import Draggable from "../Draggable/Draggable";
 
 interface ElementContainerProps {
   children: React.ReactNode;
@@ -13,33 +13,32 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
   children,
   deleteData,
 }) => {
+  // resize 구현
+  const resizableRef = useRef<HTMLDivElement>(null);
+  // draggable
+  const draggalbeRef = useRef<HTMLDivElement>(null);
+
   // 마우스 hover를 자바스크립트로 구현하여 조건부 렌더링
   const [showState, SetShowState] = useState(false);
   const onMouseOver = () => SetShowState(true);
-  const onMouseOut = () => SetShowState(false);
-
-  // resize 구현
-  const resizableRef = useRef<HTMLDivElement>(null);
-
-  // draggable
-  const draggalbeRef = useRef<HTMLDivElement>(null);
+  // const onMouseOut = () => SetShowState(false);
+  const onMouseLeave = () => SetShowState(false);
 
   return (
     <div
       className={styles.container}
       onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
+      onMouseLeave={onMouseLeave}
       ref={draggalbeRef} // draggalbeRef로 해당 요소를 조절함
     >
       <div className={styles.dataContainer} ref={resizableRef}>
-        <MyDraggable refObject={draggalbeRef}>{children}</MyDraggable>
+        <Draggable refObject={draggalbeRef}>{children}</Draggable>
       </div>
-      {showState && (
-        <div className={styles.buttonContainer}>
-          <CloseButton deleteData={deleteData} />
-          <ResizeButton resizableRef={resizableRef} />
-        </div>
-      )}
+
+      <div className={styles.buttonContainer}>
+        <DeleteButton deleteData={deleteData} />
+        <ResizeButton resizableRef={resizableRef} />
+      </div>
     </div>
   );
 };
