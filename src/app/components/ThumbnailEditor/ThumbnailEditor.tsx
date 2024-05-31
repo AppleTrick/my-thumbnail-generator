@@ -53,7 +53,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
             <img
               src={image.src}
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              style={{ width: "100%", height: "100%", objectFit: "fill" }}
             />
           </ElementContainer>
         ))}

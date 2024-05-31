@@ -22,7 +22,6 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
   const resizableRef = useRef<HTMLDivElement>(null);
 
   // draggable
-
   const draggalbeRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -35,10 +34,12 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
       <div className={styles.dataContainer} ref={resizableRef}>
         <MyDraggable refObject={draggalbeRef}>{children}</MyDraggable>
       </div>
-      <div className={styles.buttonContainer}>
-        {<CloseButton deleteData={deleteData} />}
-        {<ResizeButton resizableRef={resizableRef} />}
-      </div>
+      {showState && (
+        <div className={styles.buttonContainer}>
+          <CloseButton deleteData={deleteData} />
+          <ResizeButton resizableRef={resizableRef} />
+        </div>
+      )}
     </div>
   );
 };
