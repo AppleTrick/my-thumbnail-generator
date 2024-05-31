@@ -30,12 +30,12 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
       className={styles.container}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      ref={draggalbeRef}
+      ref={draggalbeRef} // draggalbeRef로 해당 요소를 조절함
     >
-      <div ref={resizableRef}>
+      <div className={styles.dataContainer} ref={resizableRef}>
         <MyDraggable refObject={draggalbeRef}>{children}</MyDraggable>
       </div>
-      <div>
+      <div className={styles.buttonContainer}>
         {<CloseButton deleteData={deleteData} />}
         {<ResizeButton resizableRef={resizableRef} />}
       </div>

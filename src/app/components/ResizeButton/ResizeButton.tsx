@@ -41,7 +41,6 @@
 
 import { RefObject, useCallback, useState, useEffect } from "react";
 import styles from "./resizeButton.module.css";
-import { getOffset } from "@/app/utils/utils";
 
 interface ResizeButtonProps {
   resizableRef: RefObject<HTMLDivElement>;
@@ -64,7 +63,6 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
       e.preventDefault();
       e.stopPropagation();
       if (isResizing && resizableRef.current) {
-        // const offset = getOffset(resizableRef.current.parentElement);
         const rect = resizableRef.current.getBoundingClientRect();
 
         const newWidth = e.clientX - rect.left;

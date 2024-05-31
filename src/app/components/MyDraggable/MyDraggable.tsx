@@ -18,6 +18,7 @@ const MyDraggable: React.FC<DraggableProps> = ({ children, refObject }) => {
   };
 
   const moveAt = (pageX: number, pageY: number) => {
+    // 상위요소를 움직일 경우
     if (refObject) {
       if (refObject?.current) {
         const offset = getOffset(refObject.current.parentElement);
@@ -40,11 +41,13 @@ const MyDraggable: React.FC<DraggableProps> = ({ children, refObject }) => {
   };
 
   const onMouseUp = () => {
+    // 이벤트 제거
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    // 마우스와 오브젝트간의 간격차이를 계산함
     e.preventDefault();
     if (draggableRef.current) {
       const rect = draggableRef.current.getBoundingClientRect();

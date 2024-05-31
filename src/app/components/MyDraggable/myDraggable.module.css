@@ -1,4 +1,4 @@
 .draggable {
   cursor: move;
-  position: absolute;
+  position: relative;
 }

@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./ThumbnailEditor.module.css";
 import { ThumbnailEditorProps } from "@/app/type";
 import { MyTextStyle } from "@/app/data/initialValues";
-import MyDraggable from "../MyDraggable/MyDraggable";
 import ElementContainer from "../ElementContainer/ElementContainer";
-import Resizable from "../Resizable/Resizable";
 
 const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
   width,
@@ -55,7 +53,7 @@ const ThumbnailEditor: React.FC<ThumbnailEditorProps> = ({
             <img
               src={image.src}
               alt=""
-              style={{ width: "100%", height: "100%" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </ElementContainer>
         ))}
