@@ -21,19 +21,25 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
   // resize 구현
   const resizableRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <MyDraggable>
-      <div
-        className={styles.container}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-      >
-        <div ref={resizableRef}>{children}</div>
+  // draggable
 
-        {showState && <CloseButton deleteData={deleteData} />}
-        {showState && <ResizeButton resizableRef={resizableRef} />}
+  const draggalbeRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      className={styles.container}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      ref={draggalbeRef}
+    >
+      <div ref={resizableRef}>
+        <MyDraggable refObject={draggalbeRef}>{children}</MyDraggable>
       </div>
-    </MyDraggable>
+      <div>
+        {<CloseButton deleteData={deleteData} />}
+        {<ResizeButton resizableRef={resizableRef} />}
+      </div>
+    </div>
   );
 };
 
