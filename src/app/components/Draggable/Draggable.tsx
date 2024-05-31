@@ -62,7 +62,7 @@ const Draggable: React.FC<DraggableProps> = ({ children, refObject }) => {
     <div
       ref={draggableRef}
       onMouseDown={onMouseDown}
-      className={styles.draggable}
+      className={styles.draggable_div}
     >
       {children}
     </div>
