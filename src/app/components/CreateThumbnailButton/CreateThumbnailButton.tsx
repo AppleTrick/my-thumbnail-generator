@@ -15,8 +15,6 @@ const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({
 
     const { offsetWidth: width, offsetHeight: height } = thumbnailElement;
 
-    console.log(`width값 ${width} height값 ${height}`);
-
     const canvas = await html2canvas(thumbnailElement, {
       width,
       height,
@@ -24,16 +22,16 @@ const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({
       useCORS: true,
     });
 
-    const resizedCanvas = document.createElement("canvas");
-    resizedCanvas.width = width;
-    resizedCanvas.height = height;
-    const context = resizedCanvas.getContext("2d");
+    // const resizedCanvas = document.createElement("canvas");
+    // resizedCanvas.width = width;
+    // resizedCanvas.height = height;
+    // const context = resizedCanvas.getContext("2d");
 
-    if (context) {
-      context.drawImage(canvas, 0, 0, width, height);
-    }
+    // if (context) {
+    //   context.drawImage(canvas, 0, 0, width, height);
+    // }
 
-    const dataUrl = resizedCanvas.toDataURL(`image/${format}`);
+    const dataUrl = canvas.toDataURL(`image/${format}`);
     const link = document.createElement("a");
     link.href = dataUrl;
     link.download = `thumbnail.${format}`;
