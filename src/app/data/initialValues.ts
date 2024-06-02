@@ -10,16 +10,20 @@ export const thumbnailSizes = [
   { width: 800, height: 600 },
 ];
 
-export const fontFamilies = [
-  "Roboto",
-  "Lato",
-  "Oswald",
-  "Montserrat",
-  "Raleway",
-  "Open Sans",
-  "Poppins",
-  "Merriweather",
-];
+// export const fontFamilies = [
+//   "Roboto",
+//   "Lato",
+//   "Oswald",
+//   "Montserrat",
+//   "Raleway",
+//   "Open Sans",
+//   "Poppins",
+//   "Merriweather",
+//   "NanumGothic",
+//   "DoHyeon",
+// ];
+
+export const fontFamilies = ["Jua", "DoHyeon"];
 
 export const newTextTemplate = {
   id: Date.now(),
@@ -29,7 +33,7 @@ export const newTextTemplate = {
   fontStyle: "normal",
   textDecoration: "none",
   fontSize: "36px",
-  fontFamily: "Roboto",
+  fontFamily: "Jua",
 };
 
 export const MyTextStyle = (text: Text) => {
