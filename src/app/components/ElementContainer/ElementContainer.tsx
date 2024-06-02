@@ -18,17 +18,9 @@ const ElementContainer: React.FC<ElementContainerProps> = ({
   // draggable
   const draggableRef = useRef<HTMLDivElement>(null);
 
-  // 마우스 hover를 자바스크립트로 구현하여 조건부 렌더링
-  // const [showState, SetShowState] = useState(false);
-  // const onMouseOver = () => SetShowState(true);
-  // const onMouseOut = () => SetShowState(false);
-
   return (
     <div
       className={styles.container}
-      // onMouseOver={onMouseOver}
-      // onMouseOut={onMouseOut}
-      // onMouseLeave={onMouseLeave}
       ref={draggableRef} // draggableRef로 해당 요소를 조절함
     >
       <div className={styles.dataContainer} ref={resizableRef}>
