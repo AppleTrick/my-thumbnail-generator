@@ -13,24 +13,24 @@ const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({
       "thumbnail"
     ) as HTMLElement;
 
+    const { offsetWidth: width, offsetHeight: height } = thumbnailElement;
+
+    console.log(`width값 ${width} height값 ${height}`);
+
     const canvas = await html2canvas(thumbnailElement, {
+      width,
+      height,
       scale: 1,
       useCORS: true,
     });
 
     const resizedCanvas = document.createElement("canvas");
+    resizedCanvas.width = width;
+    resizedCanvas.height = height;
     const context = resizedCanvas.getContext("2d");
-    resizedCanvas.width = thumbnailElement.offsetWidth;
-    resizedCanvas.height = thumbnailElement.offsetHeight;
 
     if (context) {
-      context.drawImage(
-        canvas,
-        0,
-        0,
-        resizedCanvas.width,
-        resizedCanvas.height
-      );
+      context.drawImage(canvas, 0, 0, width, height);
     }
 
     const dataUrl = resizedCanvas.toDataURL(`image/${format}`);
