@@ -17,26 +17,37 @@ const Draggable: React.FC<DraggableProps> = ({ children, refObject }) => {
     moveAt(e.pageX, e.pageY);
   };
 
+  // const moveAt = (pageX: number, pageY: number) => {
+  //   // 상위요소를 움직일 경우
+  //   if (refObject) {
+  //     if (refObject?.current) {
+  //       const offset = getOffset(refObject.current.parentElement);
+  //       const newLeft = pageX - shiftX - offset.left;
+  //       const newTop = pageY - shiftY - offset.top;
+
+  //       refObject.current.style.left = `${newLeft}px`;
+  //       refObject.current.style.top = `${newTop}px`;
+  //     }
+  //   } else {
+  //     if (draggableRef.current) {
+  //       const offset = getOffset(draggableRef.current.parentElement);
+  //       const newLeft = pageX - shiftX - offset.left;
+  //       const newTop = pageY - shiftY - offset.top;
+
+  //       draggableRef.current.style.left = `${newLeft}px`;
+  //       draggableRef.current.style.top = `${newTop}px`;
+  //     }
+  //   }
+  // };
+
   const moveAt = (pageX: number, pageY: number) => {
-    // 상위요소를 움직일 경우
-    if (refObject) {
-      if (refObject?.current) {
-        const offset = getOffset(refObject.current.parentElement);
-        const newLeft = pageX - shiftX - offset.left;
-        const newTop = pageY - shiftY - offset.top;
-
-        refObject.current.style.left = `${newLeft}px`;
-        refObject.current.style.top = `${newTop}px`;
-      }
-    } else {
-      if (draggableRef.current) {
-        const offset = getOffset(draggableRef.current.parentElement);
-        const newLeft = pageX - shiftX - offset.left;
-        const newTop = pageY - shiftY - offset.top;
-
-        draggableRef.current.style.left = `${newLeft}px`;
-        draggableRef.current.style.top = `${newTop}px`;
-      }
+    const targetRef = refObject?.current || draggableRef.current;
+    if (targetRef) {
+      const offset = getOffset(targetRef.parentElement);
+      const newLeft = pageX - shiftX - offset.left;
+      const newTop = pageY - shiftY - offset.top;
+      targetRef.style.left = `${newLeft}px`;
+      targetRef.style.top = `${newTop}px`;
     }
   };
 

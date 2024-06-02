@@ -23,7 +23,6 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
       e.stopPropagation();
       if (isResizing && resizableRef.current) {
         const rect = resizableRef.current.getBoundingClientRect();
-
         const newWidth = e.clientX - rect.left;
         const newHeight = e.clientY - rect.top;
         resizableRef.current.style.width = `${newWidth}px`;
