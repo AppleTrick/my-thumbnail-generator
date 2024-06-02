@@ -9,10 +9,11 @@
 
 .dataContainer {
   display: flex;
-  width: 100%;
+  width: 500px;
   height: 100%;
 }
 
 .buttonContainer {
   display: none;
+  width: 20px;
 }
