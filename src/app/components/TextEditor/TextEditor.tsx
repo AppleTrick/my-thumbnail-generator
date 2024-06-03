@@ -1,8 +1,6 @@
 import { TextEditorProps } from '@/app/type';
 import styles from './TextEditor.module.css';
-// import { fontFamilies } from '@/app/data/initialValues';
 import { fontFamiliesData } from '@/app/data/fonts';
-import { fontFamilies } from '@/app/data/initialValues';
 
 const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateText }) => {
   // texts : 전체 텍스트 값
@@ -11,7 +9,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateTe
 
   const selectedText = texts.find((text) => text.id === selectedTextId);
 
-  console.log(fontFamiliesData, fontFamilies);
+  const fontFamilies = ['inter', 'roboto', 'lato', 'oswald', 'montserrat', 'openSans', 'raleway', 'poppins', 'merriweather', 'jua'];
 
   return selectedTextId ? (
     <div className={styles.textEditor}>
@@ -25,7 +23,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateTe
       <select value={selectedText?.fontFamily} onChange={(e) => updateText(selectedTextId, { fontFamily: e.target.value })}>
         {fontFamiliesData.map((font, index) => (
           <option value={font} key={index}>
-            {font}
+            {fontFamilies[index]}
           </option>
         ))}
       </select>

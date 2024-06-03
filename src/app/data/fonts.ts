@@ -27,3 +27,5 @@ export const fontFamiliesData = [
   merriweather.style.fontFamily,
   jua.style.fontFamily,
 ];
+
+export const fontFamiliesData1 = [inter, roboto, lato, oswald, montserrat, openSans, raleway, poppins, merriweather, jua];
