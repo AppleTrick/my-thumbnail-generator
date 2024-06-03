@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import { RefObject, useEffect, useRef, useState } from "react";
-import ThumbnailEditor from "./components/ThumbnailEditor/ThumbnailEditor";
-import TextEditor from "./components/TextEditor/TextEditor";
-import styles from "./Home.module.css";
-import { Text, SrcImage } from "./type";
-import CreateThumbnailButton from "./components/CreateThumbnailButton/CreateThumbnailButton";
-import { newTextTemplate, thumbnailSizes } from "./data/initialValues";
-import { triggerFileInputClick } from "./utils/utils";
+import { RefObject, useEffect, useRef, useState } from 'react';
+import ThumbnailEditor from './components/ThumbnailEditor/ThumbnailEditor';
+import TextEditor from './components/TextEditor/TextEditor';
+import styles from './Home.module.css';
+import { Text, SrcImage } from './type';
+import CreateThumbnailButton from './components/CreateThumbnailButton/CreateThumbnailButton';
+import { newTextTemplate, thumbnailSizes } from './data/initialValues';
+import { triggerFileInputClick } from './utils/utils';
+import ChangeThumbnailSizeSelector from './components/ChangeThumbnailSizeSelector/ChangeThumbnailSizeSelector';
 
 const Home = () => {
   // 초기값 설정하는 usestate
@@ -17,7 +18,7 @@ const Home = () => {
   const [images, setImages] = useState<SrcImage[]>([]);
 
   // 추가할 이미지를 잠시 저장해둘 state
-  const [basicImage, setBasicImage] = useState<string | null>("");
+  const [basicImage, setBasicImage] = useState<string | null>('');
 
   // 값 변경에 영향을 미치는 useState
   const [selectedTextId, setSelectedTextId] = useState<number | null>(null);
@@ -27,10 +28,7 @@ const Home = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const BackgroundInputRef = useRef<HTMLInputElement>(null);
 
-  const addImage = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setImage: (image: string | null) => void
-  ) => {
+  const addImage = (e: React.ChangeEvent<HTMLInputElement>, setImage: (image: string | null) => void) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -61,9 +59,7 @@ const Home = () => {
   }, [basicImage]);
 
   const updateText = (id: number, updates: Partial<Text>) => {
-    setTexts((prev) =>
-      prev.map((text) => (text.id === id ? { ...text, ...updates } : text))
-    );
+    setTexts((prev) => prev.map((text) => (text.id === id ? { ...text, ...updates } : text)));
   };
 
   const updateImage = (id: number) => {};
@@ -97,62 +93,27 @@ const Home = () => {
         />
       </div>
       <div className={styles.sidebar}>
-        <div className={styles.controlGroup}>
-          <label>썸네일 크기: </label>
-          <select
-            onChange={(e) =>
-              setThumbnailSize(thumbnailSizes[parseInt(e.target.value, 10)])
-            }
-          >
-            {thumbnailSizes.map((size, index) => (
-              <option value={index} key={index}>
-                {size.width} x {size.height}
-              </option>
-            ))}
-          </select>
-        </div>
+        <ChangeThumbnailSizeSelector setThumbnailSize={setThumbnailSize} />
 
-        <button
-          className={styles.button}
-          onClick={() => triggerFileInputClick(BackgroundInputRef)}
-        >
+        <button className={styles.button} onClick={() => triggerFileInputClick(BackgroundInputRef)}>
           배경추가하기
         </button>
-        <input
-          type="file"
-          accept="image/*"
-          ref={BackgroundInputRef}
-          style={{ display: "none" }}
-          onChange={(e) => addImage(e, setBackgroundImage)}
-        />
+        <input type="file" accept="image/*" ref={BackgroundInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBackgroundImage)} />
 
         <button className={styles.button} onClick={addText}>
           텍스트 추가하기
         </button>
 
-        <button
-          className={styles.button}
-          onClick={() => triggerFileInputClick(fileInputRef)}
-        >
+        <button className={styles.button} onClick={() => triggerFileInputClick(fileInputRef)}>
           이미지 추가하기
         </button>
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={(e) => addImage(e, setBasicImage)}
-        />
+        <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage)} />
 
-        <TextEditor
-          selectedTextId={selectedTextId}
-          texts={texts}
-          updateText={updateText}
-        />
+        <TextEditor selectedTextId={selectedTextId} texts={texts} updateText={updateText} />
 
         <div className={styles.controlGroup}>
-          <CreateThumbnailButton createType={"png"} />
-          <CreateThumbnailButton createType={"jpg"} />
+          <CreateThumbnailButton createType={'png'} />
+          <CreateThumbnailButton createType={'jpg'} />
         </div>
       </div>
     </div>
