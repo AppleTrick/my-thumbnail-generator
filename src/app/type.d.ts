@@ -27,15 +27,6 @@ export interface ThumbnailEditorProps {
 
 export interface TextEditorProps {
   selectedTextId: number | null;
-  texts: {
-    id: number;
-    content: string;
-    color: string;
-    fontWeight: string;
-    fontStyle: string;
-    textDecoration: string;
-    fontSize: string;
-    fontFamily: string;
-  }[];
+  texts: Text[];
   updateText: (id: number, updates: Partial<Text>) => void;
 }

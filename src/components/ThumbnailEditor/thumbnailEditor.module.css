@@ -1,3 +1,12 @@
+.thumbnailSection {
+  justify-content: center;
+  align-items: center;
+  flex: 3;
+  display: flex;
+  padding: 2rem;
+  border: 1px solid #ccc;
+}
+
 .thumbnail {
   display: flex;
   background-size: cover;

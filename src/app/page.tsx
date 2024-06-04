@@ -2,13 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import ThumbnailEditor from '../components/ThumbnailEditor/ThumbnailEditor';
-import TextEditor from '../components/TextEditor/TextEditor';
 import styles from './Home.module.css';
 import { Text, SrcImage } from './type';
-import CreateThumbnailButton from '../components/CreateThumbnailButton/CreateThumbnailButton';
-import { triggerFileInputClick } from '../utils/utils';
-import ChangeThumbnailSizeSelector from '../components/ChangeThumbnailSizeSelector/ChangeThumbnailSizeSelector';
 import { newTextTemplate, thumbnailSizes } from '@/data/initialValues';
+import SideBar from '@/components/SideBar/SideBar';
 
 const Home = () => {
   // 초기값 설정하는 usestate
@@ -80,40 +77,28 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.thumbnailSection}>
-        <ThumbnailEditor
-          width={thumbnailSize.width}
-          height={thumbnailSize.height}
-          backgroundImage={backgroundImage}
-          texts={texts}
-          images={images}
-          setSelectedTextId={setSelectedTextId}
-          deleteText={deleteText}
-          deleteImage={deleteImage}
-        />
-      </div>
-      <div className={styles.sidebar}>
-        <ChangeThumbnailSizeSelector setThumbnailSize={setThumbnailSize} />
-        <button className={styles.button} onClick={() => triggerFileInputClick(BackgroundInputRef)}>
-          배경추가하기
-        </button>
-        <input type="file" accept="image/*" ref={BackgroundInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBackgroundImage)} />
-
-        <button className={styles.button} onClick={addText}>
-          텍스트 추가하기
-        </button>
-        <button className={styles.button} onClick={() => triggerFileInputClick(fileInputRef)}>
-          이미지 추가하기
-        </button>
-        <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage)} />
-
-        <TextEditor selectedTextId={selectedTextId} texts={texts} updateText={updateText} />
-
-        <div className={styles.controlGroup}>
-          <CreateThumbnailButton createType={'png'} />
-          <CreateThumbnailButton createType={'jpg'} />
-        </div>
-      </div>
+      <ThumbnailEditor
+        width={thumbnailSize.width}
+        height={thumbnailSize.height}
+        backgroundImage={backgroundImage}
+        texts={texts}
+        images={images}
+        setSelectedTextId={setSelectedTextId}
+        deleteText={deleteText}
+        deleteImage={deleteImage}
+      />
+      <SideBar
+        BackgroundInputRef={BackgroundInputRef}
+        fileInputRef={fileInputRef}
+        addText={addText}
+        addImage={addImage}
+        selectedTextId={selectedTextId}
+        texts={texts}
+        updateText={updateText}
+        setBackgroundImage={setBackgroundImage}
+        setBasicImage={setBasicImage}
+        setThumbnailSize={setThumbnailSize}
+      />
     </div>
   );
 };
