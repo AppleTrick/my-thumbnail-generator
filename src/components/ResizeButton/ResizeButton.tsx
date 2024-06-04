@@ -21,13 +21,14 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
   };
 
   const onMouseUp = () => {
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
   };
 
   const onMouseDown = () => {
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
+    console.log('클릭');
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   };
 
   return <div className={styles.resize_button} onMouseDown={onMouseDown}></div>;

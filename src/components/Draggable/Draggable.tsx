@@ -1,6 +1,6 @@
 import React, { RefObject, useRef } from 'react';
 import styles from './draggable.module.css';
-import { getOffset } from '@/app/utils/utils';
+import { getOffset } from '@/utils/utils';
 
 interface DraggableProps {
   children: React.ReactNode;

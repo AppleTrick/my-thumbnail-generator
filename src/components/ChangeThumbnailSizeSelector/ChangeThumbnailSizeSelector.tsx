@@ -1,4 +1,4 @@
-import { thumbnailSizes } from '@/app/data/initialValues';
+import { thumbnailSizes } from '@/data/initialValues';
 import styles from './changeThumbnailSizeSelector.module.css';
 
 interface ChangeThumbnailSizeSelectorProps {

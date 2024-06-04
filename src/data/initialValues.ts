@@ -1,4 +1,4 @@
-import { Text } from '../type';
+import { Text } from '@/app/type';
 
 // 썸네일 크기 사이즈 생성값들
 export const thumbnailSizes = [

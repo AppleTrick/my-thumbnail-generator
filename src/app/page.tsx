@@ -1,14 +1,14 @@
 'use client';
 
-import { RefObject, useEffect, useRef, useState } from 'react';
-import ThumbnailEditor from './components/ThumbnailEditor/ThumbnailEditor';
-import TextEditor from './components/TextEditor/TextEditor';
+import { useEffect, useRef, useState } from 'react';
+import ThumbnailEditor from '../components/ThumbnailEditor/ThumbnailEditor';
+import TextEditor from '../components/TextEditor/TextEditor';
 import styles from './Home.module.css';
 import { Text, SrcImage } from './type';
-import CreateThumbnailButton from './components/CreateThumbnailButton/CreateThumbnailButton';
-import { newTextTemplate, thumbnailSizes } from './data/initialValues';
-import { triggerFileInputClick } from './utils/utils';
-import ChangeThumbnailSizeSelector from './components/ChangeThumbnailSizeSelector/ChangeThumbnailSizeSelector';
+import CreateThumbnailButton from '../components/CreateThumbnailButton/CreateThumbnailButton';
+import { triggerFileInputClick } from '../utils/utils';
+import ChangeThumbnailSizeSelector from '../components/ChangeThumbnailSizeSelector/ChangeThumbnailSizeSelector';
+import { newTextTemplate, thumbnailSizes } from '@/data/initialValues';
 
 const Home = () => {
   // 초기값 설정하는 usestate
@@ -94,7 +94,6 @@ const Home = () => {
       </div>
       <div className={styles.sidebar}>
         <ChangeThumbnailSizeSelector setThumbnailSize={setThumbnailSize} />
-
         <button className={styles.button} onClick={() => triggerFileInputClick(BackgroundInputRef)}>
           배경추가하기
         </button>
@@ -103,7 +102,6 @@ const Home = () => {
         <button className={styles.button} onClick={addText}>
           텍스트 추가하기
         </button>
-
         <button className={styles.button} onClick={() => triggerFileInputClick(fileInputRef)}>
           이미지 추가하기
         </button>

@@ -1,6 +1,6 @@
 import { TextEditorProps } from '@/app/type';
 import styles from './TextEditor.module.css';
-import { fontFamiliesData } from '@/app/data/fonts';
+import { fontFamiliesData } from '@/data/fonts';
 
 const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateText }) => {
   // texts : 전체 텍스트 값

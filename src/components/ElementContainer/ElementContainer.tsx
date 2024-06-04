@@ -1,18 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import styles from "./elementContainer.module.css";
-import DeleteButton from "../DeleteButton/DeleteButton";
-import ResizeButton from "../ResizeButton/ResizeButton";
-import Draggable from "../Draggable/Draggable";
+import { useRef } from 'react';
+import styles from './elementContainer.module.css';
+import DeleteButton from '../DeleteButton/DeleteButton';
+import ResizeButton from '../ResizeButton/ResizeButton';
+import Draggable from '../Draggable/Draggable';
 
 interface ElementContainerProps {
   children: React.ReactNode;
   deleteData: () => void;
 }
 
-const ElementContainer: React.FC<ElementContainerProps> = ({
-  children,
-  deleteData,
-}) => {
+const ElementContainer: React.FC<ElementContainerProps> = ({ children, deleteData }) => {
   // resize 구현
   const resizableRef = useRef<HTMLDivElement>(null);
   // draggable
