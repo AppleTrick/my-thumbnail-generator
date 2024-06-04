@@ -32,5 +32,7 @@ export const MyTextStyle = (text: Text) => {
     textDecoration: text.textDecoration,
     fontSize: text.fontSize,
     fontFamily: text.fontFamily,
+    'user-select': 'none',
+    'z-index': 2,
   };
 };
