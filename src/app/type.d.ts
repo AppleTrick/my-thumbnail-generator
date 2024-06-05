@@ -7,12 +7,15 @@ export interface Text {
   textDecoration: string;
   fontSize: string;
   fontFamily: string;
+  // zIdex: number;
 }
-
 export interface SrcImage {
   id: number;
   src: string;
+  // zIdex: number;
 }
+export type TextOrSrcImage = Text | SrcImage;
+export type TextOrSrcImageArray = TextOrSrcImage[];
 
 export interface ThumbnailEditorProps {
   width: number;

@@ -1,4 +1,4 @@
-import { triggerFileInputClick } from '@/utils/utils';
+import { addImage, triggerFileInputClick } from '@/utils/utils';
 import ChangeThumbnailSizeSelector from '../ChangeThumbnailSizeSelector/ChangeThumbnailSizeSelector';
 import CreateThumbnailButton from '../CreateThumbnailButton/CreateThumbnailButton';
 import TextEditor from '../TextEditor/TextEditor';
@@ -10,7 +10,6 @@ interface SideBarProps {
   BackgroundInputRef: RefObject<HTMLInputElement>;
   fileInputRef: RefObject<HTMLInputElement>;
   addText: () => void;
-  addImage: (e: React.ChangeEvent<HTMLInputElement>, setImage: (image: string | null) => void) => void;
   selectedTextId: number | null;
   texts: Text[];
   updateText: (id: number, updates: Partial<Text>) => void;
@@ -24,7 +23,7 @@ interface SideBarProps {
   >;
 }
 
-const SideBar: React.FC<SideBarProps> = ({ setThumbnailSize, BackgroundInputRef, fileInputRef, addText, addImage, selectedTextId, texts, updateText, setBasicImage, setBackgroundImage }) => {
+const SideBar: React.FC<SideBarProps> = ({ setThumbnailSize, BackgroundInputRef, fileInputRef, addText, selectedTextId, texts, updateText, setBasicImage, setBackgroundImage }) => {
   return (
     <div className={styles.sidebar}>
       <ChangeThumbnailSizeSelector setThumbnailSize={setThumbnailSize} />
