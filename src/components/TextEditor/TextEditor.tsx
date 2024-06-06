@@ -1,26 +1,41 @@
-import { TextEditorProps } from '@/app/type';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styles from './TextEditor.module.css';
 import { fontFamiliesData } from '@/data/fonts';
+import { selectedIdState, thumbnailObjectState } from '@/common/store';
+import { Text, TextOrSrcImage } from '@/app/type';
 
-const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateText }) => {
+const TextEditor = () => {
   // texts : 전체 텍스트 값
   // selectedTextId : 선택한 텍스트 값의 id
   // updateText : setTexts 가 들어있는 함수
 
-  const selectedText = texts.find((text) => text.id === selectedTextId);
+  const selectId = useRecoilValue(selectedIdState);
+  const [thumbnailObject, setThumbnailObject] = useRecoilState(thumbnailObjectState);
+  const selectedObject = thumbnailObject.find((object) => object.id === selectId);
+
+  const updateObject = (id: number, updateData: Partial<Text>) => {
+    setThumbnailObject((prev) => prev.map((object) => (object.id === id ? { ...object, ...updateData } : object)));
+  };
 
   const fontFamilies = ['inter', 'roboto', 'lato', 'oswald', 'montserrat', 'openSans', 'raleway', 'poppins', 'merriweather', 'jua'];
 
-  return selectedTextId ? (
+  const isText = (object: TextOrSrcImage): object is Text => {
+    return (object as Text).content !== undefined;
+  };
+
+  if (!selectedObject || !isText(selectedObject)) {
+    return null;
+  }
+
+  return selectId ? (
     <div className={styles.textEditor}>
       <label>텍스트 내용: </label>
-      <input type="text" value={selectedText?.content || ''} onChange={(e) => updateText(selectedTextId, { content: e.target.value })} />
-
+      <input type="text" value={selectedObject?.content || ''} onChange={(e) => updateObject(selectId, { content: e.target.value })} />
       <label>텍스트 색상: </label>
-      <input type="color" value={selectedText?.color || '#000000'} onChange={(e) => updateText(selectedTextId, { color: e.target.value })} />
+      <input type="color" value={selectedObject?.color || '#000000'} onChange={(e) => updateObject(selectId, { color: e.target.value })} />
 
       <label>폰트: </label>
-      <select value={selectedText?.fontFamily} onChange={(e) => updateText(selectedTextId, { fontFamily: e.target.value })}>
+      <select value={selectedObject?.fontFamily} onChange={(e) => updateObject(selectId, { fontFamily: e.target.value })}>
         {fontFamiliesData.map((font, index) => (
           <option value={font} key={index}>
             {fontFamilies[index]}
@@ -29,12 +44,12 @@ const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateTe
       </select>
 
       <label>글씨 크기: </label>
-      <input type="number" value={parseInt(selectedText?.fontSize || '16')} onChange={(e) => updateText(selectedTextId, { fontSize: `${e.target.value}px` })} />
+      <input type="number" value={parseInt(selectedObject?.fontSize || '16')} onChange={(e) => updateObject(selectId, { fontSize: `${e.target.value}px` })} />
       <div>
         <button
           onClick={() =>
-            updateText(selectedTextId, {
-              fontWeight: selectedText?.fontWeight === 'bold' ? 'normal' : 'bold',
+            updateObject(selectId, {
+              fontWeight: selectedObject?.fontWeight === 'bold' ? 'normal' : 'bold',
             })
           }
         >
@@ -43,8 +58,8 @@ const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateTe
 
         <button
           onClick={() =>
-            updateText(selectedTextId, {
-              fontStyle: selectedText?.fontStyle === 'italic' ? 'normal' : 'italic',
+            updateObject(selectId, {
+              fontStyle: selectedObject?.fontStyle === 'italic' ? 'normal' : 'italic',
             })
           }
         >
@@ -52,8 +67,8 @@ const TextEditor: React.FC<TextEditorProps> = ({ selectedTextId, texts, updateTe
         </button>
         <button
           onClick={() =>
-            updateText(selectedTextId, {
-              textDecoration: selectedText?.textDecoration === 'underline' ? 'none' : 'underline',
+            updateObject(selectId, {
+              textDecoration: selectedObject?.textDecoration === 'underline' ? 'none' : 'underline',
             })
           }
         >

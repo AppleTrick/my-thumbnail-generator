@@ -1,5 +1,5 @@
 import { TextOrSrcImageArray } from '@/app/type';
-import { thumbnailSizes } from '@/data/initialValues';
+import { initailThumbnailSizes } from '@/data/initialValues';
 import { atom } from 'recoil';
 
 export const thumbnailObjectState = atom<TextOrSrcImageArray>({
@@ -14,5 +14,10 @@ export const backgroundImageState = atom<string | null>({
 
 export const thumbnailSizeState = atom({
   key: 'thumbnailSize',
-  default: thumbnailSizes[0],
+  default: initailThumbnailSizes[0],
+});
+
+export const selectedIdState = atom<number | null>({
+  key: 'selectedId',
+  default: null,
 });

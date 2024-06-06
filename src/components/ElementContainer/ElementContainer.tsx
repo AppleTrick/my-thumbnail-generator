@@ -6,10 +6,9 @@ import Draggable from '../Draggable/Draggable';
 
 interface ElementContainerProps {
   children: React.ReactNode;
-  deleteData: () => void;
 }
 
-const ElementContainer: React.FC<ElementContainerProps> = ({ children, deleteData }) => {
+const ElementContainer: React.FC<ElementContainerProps> = ({ children }) => {
   // resize 구현
   const resizableRef = useRef<HTMLDivElement>(null);
   // draggable
@@ -25,7 +24,7 @@ const ElementContainer: React.FC<ElementContainerProps> = ({ children, deleteDat
       </div>
 
       <div className={styles.buttonContainer}>
-        <DeleteButton deleteData={deleteData} />
+        <DeleteButton />
         <ResizeButton resizableRef={resizableRef} />
       </div>
     </div>

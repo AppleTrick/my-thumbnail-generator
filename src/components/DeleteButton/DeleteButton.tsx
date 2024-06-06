@@ -1,18 +1,16 @@
-import styles from "./deleteButton.module.css";
+import { useRecoilState } from 'recoil';
+import styles from './deleteButton.module.css';
+import { selectedIdState, thumbnailObjectState } from '@/common/store';
 
-interface DeleteButtonProps {
-  deleteData?: () => void;
-}
+const DeleteButton = () => {
+  const [thumbnailObject, setThumbnailObject] = useRecoilState(thumbnailObjectState);
+  const [selectedId, setSelectId] = useRecoilState(selectedIdState);
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ deleteData }) => {
+  const deleteData = () => {
+    setThumbnailObject((prev) => prev.filter((object) => object.id !== selectedId));
+  };
   return (
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        if (deleteData) deleteData();
-      }}
-      className={`${styles.deleteButton} ${styles.hidden}`}
-    >
+    <button onClick={deleteData} className={`${styles.deleteButton} ${styles.hidden}`}>
       ✕
     </button>
   );

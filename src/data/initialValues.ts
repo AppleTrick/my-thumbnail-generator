@@ -1,7 +1,7 @@
 import { Text } from '@/app/type';
 
 // 썸네일 크기 사이즈 생성값들
-export const thumbnailSizes = [
+export const initailThumbnailSizes = [
   { width: 1280, height: 720 },
   { width: 300, height: 300 },
   { width: 400, height: 400 },
