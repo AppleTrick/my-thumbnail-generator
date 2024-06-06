@@ -36,6 +36,14 @@ const SideBar = () => {
     }
   }, [basicImage]);
 
+  const onLog = () => {
+    console.log(thumbnailObject);
+  };
+
+  const onWhatSelect = () => {
+    console.log(selectedId);
+  };
+
   return (
     <div className={styles.sidebar}>
       <ChangeThumbnailSizeSelector />
@@ -53,6 +61,8 @@ const SideBar = () => {
       </button>
       <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage)} />
 
+      <button onClick={onLog}>object 값 출력</button>
+      <button onClick={onWhatSelect}>현재 선택값 출력</button>
       <TextEditor />
 
       <div className={styles.controlGroup}>

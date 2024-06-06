@@ -1,4 +1,5 @@
 import { Text } from '@/app/type';
+import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 
 // 썸네일 크기 사이즈 생성값들
 export const initailThumbnailSizes = [
@@ -21,6 +22,7 @@ export const newTextTemplate = {
   textDecoration: 'none',
   fontSize: '36px',
   fontFamily: 'Jua',
+  userSelect: 'none',
 };
 
 // 처음
@@ -32,7 +34,6 @@ export const MyTextStyle = (text: Text) => {
     textDecoration: text.textDecoration,
     fontSize: text.fontSize,
     fontFamily: text.fontFamily,
-    'user-select': 'none',
-    'z-index': 2,
+    zIndex: 2,
   };
 };
