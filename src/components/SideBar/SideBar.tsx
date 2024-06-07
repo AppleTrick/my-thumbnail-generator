@@ -3,8 +3,8 @@ import ChangeThumbnailSizeSelector from '../ChangeThumbnailSizeSelector/ChangeTh
 import CreateThumbnailButton from '../CreateThumbnailButton/CreateThumbnailButton';
 import TextEditor from '../TextEditor/TextEditor';
 import styles from './sideBar.module.css';
-import { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { backgroundImageState, selectedIdState, thumbnailObjectState } from '@/common/store';
 import { newTextTemplate } from '@/data/initialValues';
 
@@ -34,7 +34,7 @@ const SideBar = () => {
       setThumbnailObject((prev) => [...prev, newImage]);
       setSelectedId(newImage.id);
     }
-  }, [basicImage]);
+  }, [basicImage, setThumbnailObject, setSelectedId]);
 
   const onLog = () => {
     console.log(thumbnailObject);
