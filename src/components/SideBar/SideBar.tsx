@@ -7,6 +7,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { backgroundImageState, selectedIdState, thumbnailObjectState } from '@/common/store';
 import { newTextTemplate } from '@/data/initialValues';
+import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 
 const SideBar = () => {
   const [backgroundImage, setBackgroundImage] = useRecoilState(backgroundImageState);
@@ -20,7 +21,7 @@ const SideBar = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const addObject = () => {
-    const newText = { ...newTextTemplate, id: Date.now() };
+    const newText = { ...newTextTemplate, id: Date.now(), zIndex: thumbnailObject.length };
     setThumbnailObject((prev) => [...prev, newText]);
     setSelectedId(newText.id);
   };
@@ -30,12 +31,13 @@ const SideBar = () => {
       const newImage = {
         id: Date.now(),
         src: basicImage,
+        zIndex: thumbnailObject.length,
       };
       setThumbnailObject((prev) => [...prev, newImage]);
       setSelectedId(newImage.id);
       setBasicImage('');
     }
-  }, [basicImage, setThumbnailObject, setSelectedId, setBasicImage]);
+  }, [basicImage, setThumbnailObject, setSelectedId, setBasicImage, thumbnailObject.length]);
 
   const onLog = () => {
     console.log(thumbnailObject);
@@ -48,6 +50,15 @@ const SideBar = () => {
   const consoleLogbasicImage = () => {
     console.log(basicImage);
   };
+
+  const objectUp = () => {
+    console.log('오브젝트 올리기');
+  };
+
+  const objectDown = () => {
+    console.log('오브젝트 내리기');
+  };
+
   return (
     <div className={styles.sidebar}>
       <ChangeThumbnailSizeSelector />
@@ -68,6 +79,14 @@ const SideBar = () => {
       <button onClick={onLog}>object 값 출력</button>
       <button onClick={onWhatSelect}>현재 선택값 출력</button>
       <button onClick={consoleLogbasicImage}>basicImage값 출력</button>
+      <div className={styles.controlGroup}>
+        <button className={styles.button} onClick={objectDown}>
+          뒤로 보내기
+        </button>
+        <button className={styles.button} onClick={objectUp}>
+          앞으로 보내기
+        </button>
+      </div>
       <TextEditor />
 
       <div className={styles.controlGroup}>
