@@ -33,8 +33,9 @@ const SideBar = () => {
       };
       setThumbnailObject((prev) => [...prev, newImage]);
       setSelectedId(newImage.id);
+      setBasicImage('');
     }
-  }, [basicImage, setThumbnailObject, setSelectedId]);
+  }, [basicImage, setThumbnailObject, setSelectedId, setBasicImage]);
 
   const onLog = () => {
     console.log(thumbnailObject);
@@ -44,13 +45,16 @@ const SideBar = () => {
     console.log(selectedId);
   };
 
+  const consoleLogbasicImage = () => {
+    console.log(basicImage);
+  };
   return (
     <div className={styles.sidebar}>
       <ChangeThumbnailSizeSelector />
       <button className={styles.button} onClick={() => triggerFileInputClick(BackgroundInputRef)}>
         배경 이미지 추가하기
       </button>
-      <input type="file" accept="image/*" ref={BackgroundInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBackgroundImage)} />
+      <input type="file" accept="image/*" ref={BackgroundInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBackgroundImage, BackgroundInputRef)} />
 
       <button className={styles.button} onClick={addObject}>
         텍스트 추가하기
@@ -59,10 +63,11 @@ const SideBar = () => {
       <button className={styles.button} onClick={() => triggerFileInputClick(fileInputRef)}>
         이미지 추가하기
       </button>
-      <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage)} />
+      <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage, fileInputRef)} />
 
       <button onClick={onLog}>object 값 출력</button>
       <button onClick={onWhatSelect}>현재 선택값 출력</button>
+      <button onClick={consoleLogbasicImage}>basicImage값 출력</button>
       <TextEditor />
 
       <div className={styles.controlGroup}>

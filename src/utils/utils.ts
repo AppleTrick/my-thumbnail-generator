@@ -20,12 +20,15 @@ export const getOffset = (element: HTMLElement | null): { left: number; top: num
 };
 
 // 이미지 파일을 불러와서 추가 하는 함수
-export const addImage = (e: React.ChangeEvent<HTMLInputElement>, setImage: (image: string | null) => void) => {
+export const addImage = (e: React.ChangeEvent<HTMLInputElement>, setImage: (image: string | null) => void, ref: RefObject<HTMLInputElement>) => {
   const file = e.target.files?.[0];
   if (file) {
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result as string);
+      if (ref.current) {
+        ref.current.value = '';
+      }
     };
     reader.readAsDataURL(file);
   }
