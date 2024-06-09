@@ -48,6 +48,9 @@ const SideBar = () => {
   };
 
   const objectUp = (id: number) => {
+    if (id === null) {
+      return;
+    }
     console.log('오브젝트 올리기');
     const index = thumbnailObject.findIndex((el) => el.id === id);
     if (index > 0) {
@@ -83,7 +86,9 @@ const SideBar = () => {
         <button className={styles.button} onClick={objectDown}>
           뒤로 보내기
         </button>
-        <button className={styles.button}>앞으로 보내기</button>
+        <button className={styles.button} onClick={() => objectUp(selectedId!)}>
+          앞으로 보내기
+        </button>
       </div>
       <TextEditor />
 
