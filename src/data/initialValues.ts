@@ -1,4 +1,4 @@
-import { Text } from '@/app/type';
+import { SrcImage, Text } from '@/app/type';
 import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 
 // 썸네일 크기 사이즈 생성값들
@@ -26,7 +26,7 @@ export const newTextTemplate = {
 };
 
 // 처음
-export const MyTextStyle = (text: Text) => {
+export const NewTextStyle = (text: Text) => {
   return {
     color: text.color,
     fontWeight: text.fontWeight,
@@ -34,6 +34,14 @@ export const MyTextStyle = (text: Text) => {
     textDecoration: text.textDecoration,
     fontSize: text.fontSize,
     fontFamily: text.fontFamily,
-    zIndex: text.zIdex,
+    zIndex: text.zIndex,
+  };
+};
+
+export const NewImage = (length: number, basicImage: string) => {
+  return {
+    id: Date.now(),
+    src: basicImage,
+    zIndex: length,
   };
 };

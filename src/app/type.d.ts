@@ -8,12 +8,12 @@ export interface Text {
   fontSize: string;
   fontFamily: string;
   userSelect?: string;
-  zIdex?: number;
+  zIndex?: number;
 }
 export interface SrcImage {
   id: number;
   src: string;
-  zIdex?: number;
+  zIndex?: number;
 }
 export type TextOrSrcImage = Text | SrcImage;
 export type TextOrSrcImageArray = TextOrSrcImage[];

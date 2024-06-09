@@ -6,7 +6,7 @@ import styles from './sideBar.module.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { backgroundImageState, selectedIdState, thumbnailObjectState } from '@/common/store';
-import { newTextTemplate } from '@/data/initialValues';
+import { NewImage, newTextTemplate } from '@/data/initialValues';
 import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 
 const SideBar = () => {
@@ -28,11 +28,7 @@ const SideBar = () => {
 
   useEffect(() => {
     if (basicImage) {
-      const newImage = {
-        id: Date.now(),
-        src: basicImage,
-        zIndex: thumbnailObject.length,
-      };
+      const newImage = NewImage(thumbnailObject.length, basicImage);
       setThumbnailObject((prev) => [...prev, newImage]);
       setSelectedId(newImage.id);
       setBasicImage('');
@@ -51,8 +47,12 @@ const SideBar = () => {
     console.log(basicImage);
   };
 
-  const objectUp = () => {
+  const objectUp = (id: number) => {
     console.log('오브젝트 올리기');
+    const index = thumbnailObject.findIndex((el) => el.id === id);
+    if (index > 0) {
+      [thumbnailObject[index].zIndex, thumbnailObject[index - 1].zIndex] = [thumbnailObject[index - 1].zIndex, thumbnailObject[index].zIndex];
+    }
   };
 
   const objectDown = () => {
@@ -83,9 +83,7 @@ const SideBar = () => {
         <button className={styles.button} onClick={objectDown}>
           뒤로 보내기
         </button>
-        <button className={styles.button} onClick={objectUp}>
-          앞으로 보내기
-        </button>
+        <button className={styles.button}>앞으로 보내기</button>
       </div>
       <TextEditor />
 

@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import styles from './ThumbnailEditor.module.css';
 import ElementContainer from '../ElementContainer/ElementContainer';
-import { MyTextStyle } from '@/data/initialValues';
+import { NewTextStyle } from '@/data/initialValues';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { backgroundImageState, selectedIdState, thumbnailObjectState, thumbnailSizeState } from '@/common/store';
 import { SrcImage, TextOrSrcImage } from '@/app/type';
@@ -34,9 +34,14 @@ const ThumbnailEditor = () => {
           {thumbnailObject.map((object) => (
             <ElementContainer key={object.id} id={object.id}>
               {isTextOrImage(object) ? (
-                <img src={object.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill', userSelect: 'none', zIndex: object.zIdex, position: 'relative' }} />
+                <img
+                  src={object.src}
+                  alt=""
+                  style={{ width: '100%', height: '100%', objectFit: 'fill', userSelect: 'none', zIndex: object.zIndex, position: 'relative' }}
+                  onClick={() => setselectedId(object.id)}
+                />
               ) : (
-                <span style={{ ...MyTextStyle(object), position: 'relative' }} onClick={() => setselectedId(object.id)}>
+                <span style={{ ...NewTextStyle(object), position: 'relative' }} onClick={() => setselectedId(object.id)}>
                   {object.content}
                 </span>
               )}
