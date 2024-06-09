@@ -3,11 +3,10 @@ import ChangeThumbnailSizeSelector from '../ChangeThumbnailSizeSelector/ChangeTh
 import CreateThumbnailButton from '../CreateThumbnailButton/CreateThumbnailButton';
 import TextEditor from '../TextEditor/TextEditor';
 import styles from './sideBar.module.css';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { backgroundImageState, selectedIdState, thumbnailObjectState } from '@/common/store';
 import { NewImage, newTextTemplate } from '@/data/initialValues';
-import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 
 const SideBar = () => {
   const [backgroundImage, setBackgroundImage] = useRecoilState(backgroundImageState);
@@ -21,14 +20,14 @@ const SideBar = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const addObject = () => {
-    const newText = { ...newTextTemplate, id: Date.now(), zIndex: thumbnailObject.length };
+    const newText = { ...newTextTemplate, id: Date.now(), zIndex: thumbnailObject.length + 1 };
     setThumbnailObject((prev) => [...prev, newText]);
     setSelectedId(newText.id);
   };
 
   useEffect(() => {
     if (basicImage) {
-      const newImage = NewImage(thumbnailObject.length, basicImage);
+      const newImage = NewImage(thumbnailObject.length + 1, basicImage);
       setThumbnailObject((prev) => [...prev, newImage]);
       setSelectedId(newImage.id);
       setBasicImage('');
@@ -47,19 +46,25 @@ const SideBar = () => {
     console.log(basicImage);
   };
 
-  const objectUp = (id: number) => {
-    if (id === null) {
-      return;
-    }
-    console.log('오브젝트 올리기');
-    const index = thumbnailObject.findIndex((el) => el.id === id);
-    if (index > 0) {
-      [thumbnailObject[index].zIndex, thumbnailObject[index - 1].zIndex] = [thumbnailObject[index - 1].zIndex, thumbnailObject[index].zIndex];
-    }
-  };
+  const upDownZIndex = (id: number | null, increment: number) => {
+    if (id === null) return;
+    setThumbnailObject((prev) => {
+      const newThumbnailObject = [...prev];
+      const index = newThumbnailObject.findIndex((el) => el.id === id);
+      if (index !== -1) {
+        const newZIndex = newThumbnailObject[index].zIndex + increment;
 
-  const objectDown = () => {
-    console.log('오브젝트 내리기');
+        const conflictingIndex = newThumbnailObject.findIndex((el) => el.zIndex === newZIndex);
+        if (conflictingIndex !== -1) {
+          newThumbnailObject[conflictingIndex].zIndex = newThumbnailObject[index].zIndex;
+        }
+
+        newThumbnailObject[index].zIndex = newZIndex;
+
+        newThumbnailObject.sort((a, b) => a.zIndex - b.zIndex);
+      }
+      return newThumbnailObject;
+    });
   };
 
   return (
@@ -83,10 +88,10 @@ const SideBar = () => {
       <button onClick={onWhatSelect}>현재 선택값 출력</button>
       <button onClick={consoleLogbasicImage}>basicImage값 출력</button>
       <div className={styles.controlGroup}>
-        <button className={styles.button} onClick={objectDown}>
+        <button className={styles.button} onClick={() => upDownZIndex(selectedId, -1)}>
           뒤로 보내기
         </button>
-        <button className={styles.button} onClick={() => objectUp(selectedId!)}>
+        <button className={styles.button} onClick={() => upDownZIndex(selectedId, 1)}>
           앞으로 보내기
         </button>
       </div>
