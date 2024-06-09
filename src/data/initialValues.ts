@@ -34,6 +34,6 @@ export const MyTextStyle = (text: Text) => {
     textDecoration: text.textDecoration,
     fontSize: text.fontSize,
     fontFamily: text.fontFamily,
-    zIndex: 2,
+    zIndex: text.zIdex,
   };
 };

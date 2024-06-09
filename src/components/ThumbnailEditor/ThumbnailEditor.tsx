@@ -34,7 +34,7 @@ const ThumbnailEditor = () => {
           {thumbnailObject.map((object) => (
             <ElementContainer key={object.id} id={object.id}>
               {isTextOrImage(object) ? (
-                <img src={object.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill', userSelect: 'none', zIndex: -1, position: 'relative' }} />
+                <img src={object.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill', userSelect: 'none', zIndex: object.zIdex, position: 'relative' }} />
               ) : (
                 <span style={{ ...MyTextStyle(object), position: 'relative' }} onClick={() => setselectedId(object.id)}>
                   {object.content}
