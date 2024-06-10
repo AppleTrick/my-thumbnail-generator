@@ -4,9 +4,10 @@ import { selectedIdState, thumbnailObjectState } from '@/common/store';
 
 interface DeleteButtonProps {
   id: number;
+  zIndex: number;
 }
 
-const DeleteButton = ({ id }: DeleteButtonProps) => {
+const DeleteButton = ({ id, zIndex }: DeleteButtonProps) => {
   const [thumbnailObject, setThumbnailObject] = useRecoilState(thumbnailObjectState);
   const [selectedId, setSelectId] = useRecoilState(selectedIdState);
 
@@ -15,7 +16,7 @@ const DeleteButton = ({ id }: DeleteButtonProps) => {
     setSelectId(null);
   };
   return (
-    <button onClick={deleteData} className={`${styles.deleteButton} ${styles.hidden}`}>
+    <button onClick={deleteData} className={`${styles.deleteButton} ${styles.hidden}`} style={{ zIndex: zIndex }}>
       ✕
     </button>
   );

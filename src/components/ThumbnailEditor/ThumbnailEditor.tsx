@@ -32,7 +32,7 @@ const ThumbnailEditor = () => {
       >
         <div className={styles.hideOverflow} style={{ width: `${thumbnailSize.width}px`, height: `${thumbnailSize.height}px` }}>
           {thumbnailObject.map((object) => (
-            <ElementContainer key={object.id} id={object.id}>
+            <ElementContainer key={object.id} id={object.id} zIndex={object.zIndex}>
               {isTextOrImage(object) ? (
                 <img
                   src={object.src}

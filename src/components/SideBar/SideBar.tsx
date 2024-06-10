@@ -72,7 +72,6 @@ const SideBar = () => {
           zIndex: newZIndex,
         };
 
-        // Ensure the array is sorted by zIndex to maintain order
         // newThumbnailObject.sort((a, b) => a.zIndex - b.zIndex);
       }
 

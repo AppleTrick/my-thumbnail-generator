@@ -3,9 +3,10 @@ import styles from './resizeButton.module.css';
 
 interface ResizeButtonProps {
   resizableRef: RefObject<HTMLDivElement>;
+  zIndex: number;
 }
 
-const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
+const ResizeButton = ({ resizableRef, zIndex }: ResizeButtonProps) => {
   const resize = (pageX: number, pageY: number) => {
     if (resizableRef.current) {
       const rect = resizableRef.current.getBoundingClientRect();
@@ -31,7 +32,7 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  return <div className={styles.resize_button} onMouseDown={onMouseDown}></div>;
+  return <div className={styles.resize_button} style={{ zIndex: zIndex }} onMouseDown={onMouseDown}></div>;
 };
 
 export default ResizeButton;
