@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { MouseEvent as ReactMouseEvent, RefObject } from 'react';
 import styles from './resizeButton.module.css';
 
 interface ResizeButtonProps {
@@ -18,6 +18,7 @@ const ResizeButton = ({ resizableRef, zIndex }: ResizeButtonProps) => {
   };
 
   const onMouseMove = (e: MouseEvent) => {
+    e.stopPropagation();
     resize(e.pageX, e.pageY);
   };
 
@@ -26,8 +27,8 @@ const ResizeButton = ({ resizableRef, zIndex }: ResizeButtonProps) => {
     document.removeEventListener('mouseup', onMouseUp);
   };
 
-  const onMouseDown = () => {
-    console.log('클릭');
+  const onMouseDown = (e: ReactMouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
