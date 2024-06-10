@@ -10,15 +10,34 @@
 
 .controlGroup {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.buttonContainer:not(:first-child) {
+  margin-left: 0.5rem; /* 첫 번째 버튼을 제외한 나머지 버튼의 왼쪽에 마진 추가 */
+}
+
+.buttonContainer:not(:last-child) {
+  margin-right: 0.5rem; /* 마지막 버튼을 제외한 나머지 버튼의 오른쪽에 마진 추가 */
 }
 
 .button {
+  width: 100%;
   padding: 0.5rem 1rem;
   background-color: #0070f3;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
 }
 
 .button:hover {

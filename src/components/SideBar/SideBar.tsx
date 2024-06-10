@@ -34,35 +34,48 @@ const SideBar = () => {
     }
   }, [basicImage, setThumbnailObject, setSelectedId, setBasicImage, thumbnailObject.length]);
 
-  const onLog = () => {
-    console.log(thumbnailObject);
-  };
+  // TestCode
+  // const onLog = () => {
+  //   console.log(thumbnailObject);
+  // };
 
-  const onWhatSelect = () => {
-    console.log(selectedId);
-  };
+  // const onWhatSelect = () => {
+  //   console.log(selectedId);
+  // };
 
-  const consoleLogbasicImage = () => {
-    console.log(basicImage);
-  };
+  // const consoleLogbasicImage = () => {
+  //   console.log(basicImage);
+  // };
 
   const upDownZIndex = (id: number | null, increment: number) => {
     if (id === null) return;
     setThumbnailObject((prev) => {
-      const newThumbnailObject = [...prev];
-      const index = newThumbnailObject.findIndex((el) => el.id === id);
-      if (index !== -1) {
-        const newZIndex = newThumbnailObject[index].zIndex + increment;
+      const newThumbnailObject = [...prev]; // 요소 복사
+      const index = newThumbnailObject.findIndex((el) => el.id === id); // id값과 동일안 object 요소 소환
+      if (index !== -1 && newThumbnailObject[index] !== undefined) {
+        const currentZIndex = newThumbnailObject[index].zIndex;
+        const newZIndex = currentZIndex + increment;
+
+        if (newZIndex <= 0) return newThumbnailObject;
+        if (newZIndex > thumbnailObject.length) return newThumbnailObject;
 
         const conflictingIndex = newThumbnailObject.findIndex((el) => el.zIndex === newZIndex);
-        if (conflictingIndex !== -1) {
-          newThumbnailObject[conflictingIndex].zIndex = newThumbnailObject[index].zIndex;
+        if (conflictingIndex !== -1 && newThumbnailObject[conflictingIndex] !== undefined) {
+          newThumbnailObject[conflictingIndex] = {
+            ...newThumbnailObject[conflictingIndex],
+            zIndex: currentZIndex,
+          };
         }
 
-        newThumbnailObject[index].zIndex = newZIndex;
+        newThumbnailObject[index] = {
+          ...newThumbnailObject[index],
+          zIndex: newZIndex,
+        };
 
-        newThumbnailObject.sort((a, b) => a.zIndex - b.zIndex);
+        // Ensure the array is sorted by zIndex to maintain order
+        // newThumbnailObject.sort((a, b) => a.zIndex - b.zIndex);
       }
+
       return newThumbnailObject;
     });
   };
@@ -84,22 +97,30 @@ const SideBar = () => {
       </button>
       <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={(e) => addImage(e, setBasicImage, fileInputRef)} />
 
-      <button onClick={onLog}>object 값 출력</button>
-      <button onClick={onWhatSelect}>현재 선택값 출력</button>
-      <button onClick={consoleLogbasicImage}>basicImage값 출력</button>
+      {/* <button onClick={onLog}>object 값 출력</button> */}
+      {/* <button onClick={onWhatSelect}>현재 선택값 출력</button> */}
+      {/* <button onClick={consoleLogbasicImage}>basicImage값 출력</button>/ */}
       <div className={styles.controlGroup}>
-        <button className={styles.button} onClick={() => upDownZIndex(selectedId, -1)}>
-          뒤로 보내기
-        </button>
-        <button className={styles.button} onClick={() => upDownZIndex(selectedId, 1)}>
-          앞으로 보내기
-        </button>
+        <div className={styles.buttonContainer}>
+          <button className={styles.button} onClick={() => upDownZIndex(selectedId, -1)}>
+            뒤로 보내기
+          </button>
+        </div>
+        <div className={styles.buttonContainer}>
+          <button className={styles.button} onClick={() => upDownZIndex(selectedId, 1)}>
+            앞으로 보내기
+          </button>
+        </div>
       </div>
       <TextEditor />
 
       <div className={styles.controlGroup}>
-        <CreateThumbnailButton createType={'png'} />
-        <CreateThumbnailButton createType={'jpg'} />
+        <div className={styles.buttonContainer}>
+          <CreateThumbnailButton createType={'png'} />
+        </div>
+        <div className={styles.buttonContainer}>
+          <CreateThumbnailButton createType={'jpg'} />
+        </div>
       </div>
     </div>
   );

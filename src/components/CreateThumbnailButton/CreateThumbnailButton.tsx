@@ -1,20 +1,16 @@
-import html2canvas from "html2canvas";
-import styles from "./createThumbnailButton.module.css";
+import html2canvas from 'html2canvas';
+import styles from './createThumbnailButton.module.css';
 
 interface CreateThumbnailButtonProps {
-  createType: "png" | "jpeg" | "jpg";
+  createType: 'png' | 'jpeg' | 'jpg';
 }
 
-const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({
-  createType,
-}) => {
-  const downloadImage = async (format: "png" | "jpeg" | "jpg") => {
-    const thumbnailElement = document.getElementById(
-      "thumbnail"
-    ) as HTMLElement;
+const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({ createType }) => {
+  const downloadImage = async (format: 'png' | 'jpeg' | 'jpg') => {
+    const thumbnailElement = document.getElementById('thumbnail') as HTMLElement;
 
     const originalBorder = thumbnailElement.style.border;
-    thumbnailElement.style.border = "none";
+    thumbnailElement.style.border = 'none';
     const { offsetWidth: width, offsetHeight: height } = thumbnailElement;
     const canvas = await html2canvas(thumbnailElement, {
       width,
@@ -26,7 +22,7 @@ const CreateThumbnailButton: React.FC<CreateThumbnailButtonProps> = ({
     thumbnailElement.style.border = originalBorder;
 
     const dataUrl = canvas.toDataURL(`image/${format}`);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = dataUrl;
     link.download = `thumbnail.${format}`;
     link.click();
