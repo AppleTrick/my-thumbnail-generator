@@ -19,6 +19,7 @@ const ElementContainer: React.FC<ElementContainerProps> = ({ children, id, zInde
   return (
     <div
       className={styles.container}
+      style={{ zIndex: zIndex }}
       ref={draggableRef} // draggableRef로 해당 요소를 조절함
     >
       <div className={styles.dataContainer} ref={resizableRef}>
@@ -26,8 +27,8 @@ const ElementContainer: React.FC<ElementContainerProps> = ({ children, id, zInde
       </div>
 
       <div className={styles.buttonContainer}>
-        <DeleteButton id={id} zIndex={zIndex} />
-        <ResizeButton resizableRef={resizableRef} zIndex={zIndex} />
+        <DeleteButton id={id} />
+        <ResizeButton resizableRef={resizableRef} />
       </div>
     </div>
   );
