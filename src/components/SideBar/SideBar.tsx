@@ -48,34 +48,42 @@ const SideBar = () => {
   // };
 
   const upDownZIndex = (id: number | null, increment: number) => {
-    if (id === null) return;
+    if (id === null) return; // id가 빈값이면 return
+
     setThumbnailObject((prev) => {
+      // 썸네일 오브젝트 설정
       const newThumbnailObject = [...prev]; // 요소 복사
-      const index = newThumbnailObject.findIndex((el) => el.id === id); // id값과 동일안 object 요소 소환
-      if (index !== -1 && newThumbnailObject[index] !== undefined) {
-        const currentZIndex = newThumbnailObject[index].zIndex;
-        const newZIndex = currentZIndex + increment;
 
-        if (newZIndex <= 0) return newThumbnailObject;
-        if (newZIndex > thumbnailObject.length) return newThumbnailObject;
+      const index = newThumbnailObject.findIndex((el) => el.id === id);
+      // id값과 동일안 object.index 요소 소환
 
-        const conflictingIndex = newThumbnailObject.findIndex((el) => el.zIndex === newZIndex);
-        if (conflictingIndex !== -1 && newThumbnailObject[conflictingIndex] !== undefined) {
-          newThumbnailObject[conflictingIndex] = {
-            ...newThumbnailObject[conflictingIndex],
-            zIndex: currentZIndex,
-          };
-        }
+      const currentZIndex = newThumbnailObject[index].zIndex;
+      // zIndex 값 구하기
 
-        newThumbnailObject[index] = {
-          ...newThumbnailObject[index],
-          zIndex: newZIndex,
-        };
+      const newZIndex = currentZIndex + increment;
+      // 변화한 zIndex
 
-        // newThumbnailObject.sort((a, b) => a.zIndex - b.zIndex);
-      }
+      if (newZIndex <= 0) return newThumbnailObject;
+      // 만약 0 이하면  => zindex 를 최소 이하로는못하게
+      if (newZIndex > thumbnailObject.length) return newThumbnailObject;
+      //  => zindex 를 최대로는 못하게
 
-      return newThumbnailObject;
+      const conflictingIndex = newThumbnailObject.findIndex((el) => el.zIndex === newZIndex);
+      // 변화한 zIndex 값과 동일한 오브젝트 index 값 구하기
+
+      newThumbnailObject[conflictingIndex] = {
+        // zindex 값 변화
+        ...newThumbnailObject[conflictingIndex],
+        zIndex: currentZIndex,
+      };
+
+      newThumbnailObject[index] = {
+        // id와 동일한 index의 zindex 의 값은 변화 시키기
+        ...newThumbnailObject[index],
+        zIndex: newZIndex,
+      };
+
+      return newThumbnailObject; // 새롭게 변화시킨 오브젝트 값을 리턴
     });
   };
 
