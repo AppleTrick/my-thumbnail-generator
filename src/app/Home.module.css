@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.thumbnailSection {
+/* .thumbnailSection {
   justify-content: center;
   align-items: center;
   flex: 3;
@@ -27,4 +27,4 @@
 
 .button:hover {
   background-color: #005bb5;
-}
+} */

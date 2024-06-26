@@ -2,6 +2,7 @@
 
 import './globals.css';
 import { jua } from '@/data/fonts';
+import Header from '@/layout/header/header';
 import { RecoilRoot } from 'recoil';
 
 export default function RootLayout({
@@ -15,7 +16,9 @@ export default function RootLayout({
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
         </head>
+        <Header />
         <body className={jua.className}>{children}</body>
+        <footer />
       </html>
     </RecoilRoot>
   );
