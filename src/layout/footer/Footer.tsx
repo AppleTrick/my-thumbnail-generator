@@ -2,67 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
-const FooterContainer = styled.footer`
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
-`;
-
-const FooterContent = styled.div`
-  display: flex;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-`;
-
-const FooterSection = styled.div`
-  flex: 1;
-  padding: 10px;
-`;
-
-const FooterHeading = styled.h4`
-  font-size: 18px;
-  margin-bottom: 10px;
-`;
-
-const FooterText = styled.p`
-  font-size: 14px;
-`;
-
-const FooterList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const FooterLink = styled.a`
-  color: #fff;
-  text-decoration: none;
-  margin-bottom: 5px;
-  display: inline-block;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const FooterAnchor = styled.a`
-  color: #fff;
-  text-decoration: none;
-  margin-bottom: 5px;
-  display: inline-block;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const FooterBottom = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
+import * as S from './footer.styles';
 
 const Footer: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -72,61 +12,61 @@ const Footer: React.FC = () => {
   }, []);
 
   if (!isMounted) {
-    return null; // 클라이언트 사이드에서만 렌더링되도록
+    return null;
   }
 
   return (
-    <FooterContainer>
-      <FooterContent>
-        <FooterSection>
-          <FooterHeading>About Us</FooterHeading>
-          <FooterText>We are a team of passionate developers.</FooterText>
-        </FooterSection>
-        <FooterSection>
-          <FooterHeading>Quick Links</FooterHeading>
-          <FooterList>
+    <S.FooterContainer>
+      <S.FooterContent>
+        <S.FooterSection>
+          <S.FooterHeading>About Us</S.FooterHeading>
+          <S.FooterText>We are a team of passionate developers.</S.FooterText>
+        </S.FooterSection>
+        <S.FooterSection>
+          <S.FooterHeading>Quick Links</S.FooterHeading>
+          <S.FooterList>
             <li>
               <Link href="/">
-                <FooterLink>Home</FooterLink>
+                <S.FooterLink>Home</S.FooterLink>
               </Link>
             </li>
             <li>
               <Link href="/about">
-                <FooterLink>About</FooterLink>
+                <S.FooterLink>About</S.FooterLink>
               </Link>
             </li>
             <li>
               <Link href="/contact">
-                <FooterLink>Contact</FooterLink>
+                <S.FooterLink>Contact</S.FooterLink>
               </Link>
             </li>
-          </FooterList>
-        </FooterSection>
-        <FooterSection>
-          <FooterHeading>Follow Us</FooterHeading>
-          <FooterList>
+          </S.FooterList>
+        </S.FooterSection>
+        <S.FooterSection>
+          <S.FooterHeading>Follow Us</S.FooterHeading>
+          <S.FooterList>
             <li>
-              <FooterAnchor href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <S.FooterAnchor href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                 Twitter
-              </FooterAnchor>
+              </S.FooterAnchor>
             </li>
             <li>
-              <FooterAnchor href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <S.FooterAnchor href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 Facebook
-              </FooterAnchor>
+              </S.FooterAnchor>
             </li>
             <li>
-              <FooterAnchor href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <S.FooterAnchor href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                 Instagram
-              </FooterAnchor>
+              </S.FooterAnchor>
             </li>
-          </FooterList>
-        </FooterSection>
-      </FooterContent>
-      <FooterBottom>
-        <FooterText>© 2024 Your Company. All rights reserved.</FooterText>
-      </FooterBottom>
-    </FooterContainer>
+          </S.FooterList>
+        </S.FooterSection>
+      </S.FooterContent>
+      <S.FooterBottom>
+        <S.FooterText>© 2024 Your Company. All rights reserved.</S.FooterText>
+      </S.FooterBottom>
+    </S.FooterContainer>
   );
 };
 

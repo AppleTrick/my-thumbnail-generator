@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
-
+import * as S from './header.styles';
 const Header: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -16,74 +15,33 @@ const Header: React.FC = () => {
   }
 
   return (
-    <HeaderContainer>
-      <Logo>
+    <S.HeaderContainer>
+      <S.Logo>
         <Link href="/" passHref>
           EasyToUse
         </Link>
-      </Logo>
-      <Nav>
-        <NavList>
-          <NavItem>
+      </S.Logo>
+      <S.Nav>
+        <S.NavList>
+          <S.NavItem>
             <Link href="/thumbnailgenerator" passHref>
               썸네일만들기
             </Link>
-          </NavItem>
-          <NavItem>
+          </S.NavItem>
+          <S.NavItem>
             <Link href="/about" passHref>
               About
             </Link>
-          </NavItem>
-          <NavItem>
+          </S.NavItem>
+          <S.NavItem>
             <Link href="/contact" passHref>
               Contact
             </Link>
-          </NavItem>
-        </NavList>
-      </Nav>
-    </HeaderContainer>
+          </S.NavItem>
+        </S.NavList>
+      </S.Nav>
+    </S.HeaderContainer>
   );
 };
-
-const HeaderContainer = styled.header`
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Logo = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-`;
-
-const Nav = styled.nav``;
-
-const NavList = styled.ul`
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-`;
-
-const NavItem = styled.li`
-  margin-left: 20px;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
 
 export default Header;
