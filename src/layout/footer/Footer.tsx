@@ -19,25 +19,25 @@ const Footer: React.FC = () => {
     <S.FooterContainer>
       <S.FooterContent>
         <S.FooterSection>
-          <S.FooterHeading>About Us</S.FooterHeading>
-          <S.FooterText>We are a team of passionate developers.</S.FooterText>
+          <S.FooterHeading>About Me</S.FooterHeading>
+          <S.FooterText>필요한걸 만드는 개발자 입니다</S.FooterText>
         </S.FooterSection>
         <S.FooterSection>
-          <S.FooterHeading>Quick Links</S.FooterHeading>
+          <S.FooterHeading>Links</S.FooterHeading>
           <S.FooterList>
             <li>
               <Link href="/">
-                <S.FooterLink>Home</S.FooterLink>
+                <S.FooterLink>썸네일만들기</S.FooterLink>
               </Link>
             </li>
             <li>
               <Link href="/about">
-                <S.FooterLink>About</S.FooterLink>
+                <S.FooterLink>프로젝트 소개</S.FooterLink>
               </Link>
             </li>
             <li>
               <Link href="/contact">
-                <S.FooterLink>Contact</S.FooterLink>
+                <S.FooterLink>문의하기</S.FooterLink>
               </Link>
             </li>
           </S.FooterList>
@@ -47,10 +47,10 @@ const Footer: React.FC = () => {
           <S.FooterList>
             <li>
               <S.FooterAnchor href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                Twitter
+                github
               </S.FooterAnchor>
             </li>
-            <li>
+            {/* <li>
               <S.FooterAnchor href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 Facebook
               </S.FooterAnchor>
@@ -59,13 +59,13 @@ const Footer: React.FC = () => {
               <S.FooterAnchor href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                 Instagram
               </S.FooterAnchor>
-            </li>
+            </li> */}
           </S.FooterList>
         </S.FooterSection>
       </S.FooterContent>
-      <S.FooterBottom>
+      {/* <S.FooterBottom>
         <S.FooterText>© 2024 Your Company. All rights reserved.</S.FooterText>
-      </S.FooterBottom>
+      </S.FooterBottom> */}
     </S.FooterContainer>
   );
 };

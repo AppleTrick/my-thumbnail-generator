@@ -30,12 +30,12 @@ const Header: React.FC = () => {
           </S.NavItem>
           <S.NavItem>
             <Link href="/about" passHref>
-              About
+              프로젝트 소개
             </Link>
           </S.NavItem>
           <S.NavItem>
             <Link href="/contact" passHref>
-              Contact
+              문의하기
             </Link>
           </S.NavItem>
         </S.NavList>
