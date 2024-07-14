@@ -5,7 +5,6 @@ export const HeaderContainer = styled.header`
   color: #fff;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 `;
 
@@ -19,7 +18,12 @@ export const Logo = styled.div`
   }
 `;
 
-export const Nav = styled.nav``;
+export const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-left: 20px; /* 로고와 네비게이션 간의 여백 */
+`;
 
 export const NavList = styled.ul`
   list-style: none;

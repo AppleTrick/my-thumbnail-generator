@@ -22,23 +22,29 @@ const Header: React.FC = () => {
         </Link>
       </S.Logo>
       <S.Nav>
-        <S.NavList>
-          <S.NavItem>
-            <Link href="/thumbnailgenerator" passHref>
-              썸네일만들기
-            </Link>
-          </S.NavItem>
-          <S.NavItem>
-            <Link href="/about" passHref>
-              프로젝트 소개
-            </Link>
-          </S.NavItem>
-          <S.NavItem>
-            <Link href="/contact" passHref>
-              문의하기
-            </Link>
-          </S.NavItem>
-        </S.NavList>
+        <div>
+          <S.NavList>
+            <S.NavItem>
+              <Link href="/about" passHref>
+                프로젝트 소개
+              </Link>
+            </S.NavItem>
+            <S.NavItem>
+              <Link href="/thumbnailgenerator" passHref>
+                썸네일만들기
+              </Link>
+            </S.NavItem>
+          </S.NavList>
+        </div>
+        <div>
+          <S.NavList>
+            <S.NavItem>
+              <Link href="/contact" passHref>
+                문의하기
+              </Link>
+            </S.NavItem>
+          </S.NavList>
+        </div>
       </S.Nav>
     </S.HeaderContainer>
   );
