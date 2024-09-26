@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef } from 'react';
-import styles from './ThumbnailEditor.module.css';
+import styles from './thumbnailEditor.module.css';
 import ElementContainer from '../ElementContainer/ElementContainer';
 import { NewTextStyle } from '@/data/initialValues';
 import { useRecoilState, useRecoilValue } from 'recoil';

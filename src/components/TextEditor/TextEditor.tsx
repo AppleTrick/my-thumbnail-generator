@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import styles from './TextEditor.module.css';
+import styles from './textEditor.module.css';
 import { fontFamiliesData } from '@/data/fonts';
 import { selectedIdState, thumbnailObjectState } from '@/common/store';
 import { Text, TextOrSrcImage } from '@/app/type';
