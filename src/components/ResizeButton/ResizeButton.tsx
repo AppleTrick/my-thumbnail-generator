@@ -21,6 +21,7 @@ const ResizeButton = ({ resizableRef }: ResizeButtonProps) => {
       e.stopPropagation();
       resize(e.pageX, e.pageY);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [resizableRef],
   );
 

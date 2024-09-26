@@ -1,6 +1,7 @@
 import { thumbnailObjectState } from '@/common/store';
 import { useRecoilState } from 'recoil';
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const [thumbnailObject, setThumbnailObject] = useRecoilState(thumbnailObjectState);
 
 const upDownZIndex = (id: number, increment: number) => {
