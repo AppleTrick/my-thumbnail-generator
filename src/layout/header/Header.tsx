@@ -29,11 +29,6 @@ const Header: React.FC = () => {
                 프로젝트 소개
               </Link>
             </S.NavItem>
-            <S.NavItem>
-              <Link href="/thumbnailgenerator" passHref>
-                썸네일만들기
-              </Link>
-            </S.NavItem>
           </S.NavList>
         </div>
         <div>
